@@ -21,8 +21,8 @@ export default function JuzAmmaPage() {
   let originSurahInfo = makiyahMadaniyah()
 
   return (
-    <div className="flex flex-col px-4">
-      <h1 className="font-bold text-2xl">Juz Amma</h1>
+    <div className="flex flex-col">
+      <h1 className="flex p-4 font-bold text-2xl">Juz Amma</h1>
       {Object.values(originSurahInfo).map((item, index) => (
         <CardSurah key={index} surahInfoItem={item} />
       ))}
