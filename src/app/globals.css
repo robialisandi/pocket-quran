@@ -16,6 +16,12 @@
   }
 } */
 
+@font-face {
+	font-family: 'lpmq';
+	src: url(/fonts/lpmq.otf) format('opentype');
+	font-display: swap;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-end-rgb));
