@@ -7,7 +7,7 @@ export default function WiridPage() {
       {wirid.data.map((item, index) => (
         <div className="flex justify-end items-end gap-5 py-10" key={index}>
           <span className="font-bold text-2xl">{item.id}x</span>
-          <span className="font-arabic text-2xl font-bold text-right text-[#2F6742]">
+          <span className="font-arabic text-2xl text-right text-[#2F6742]">
             {item.arabic}
           </span>
         </div>
