@@ -22,7 +22,9 @@ export default function JuzAmmaPage() {
 
   return (
     <div className="flex flex-col">
-      <h1 className="flex p-4 font-bold text-2xl">Juz Amma</h1>
+      <h1 className="flex py-2 font-bold px-4 text-[#2F6742] bg-[#c8e0d5]">
+        Juz Amma
+      </h1>
       {Object.values(originSurahInfo).map((item, index) => (
         <CardSurah key={index} surahInfoItem={item} />
       ))}
