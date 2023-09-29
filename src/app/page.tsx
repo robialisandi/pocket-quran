@@ -23,11 +23,6 @@ export default function Home() {
       pathName: '/wirid',
     },
     {
-      name: 'Tasbih',
-      icon: 'tasbih',
-      pathName: '/tasbih',
-    },
-    {
       name: 'Tahlil',
       icon: 'tahlil',
       pathName: '/tahlil',
@@ -45,12 +40,10 @@ export default function Home() {
   ]
 
   return (
-    <div className="px-4">
-      <div className="grid grid-cols-4 gap-2">
-        {menus.map((menu) => (
-          <CardShadow key={menu.name} menu={menu} />
-        ))}
-      </div>
+    <div className="grid grid-cols-3 gap-[1px]">
+      {menus.map((menu) => (
+        <CardShadow key={menu.name} menu={menu} />
+      ))}
     </div>
   )
 }
