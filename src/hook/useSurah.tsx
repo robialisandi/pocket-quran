@@ -7,7 +7,9 @@ export default function useSurah(surahId: string) {
     async (surahId: string) => {
       console.log('getData useSurah')
 
-      const res = await fetch(`/api/surah?id=${surahId}`)
+      const res = await fetch(`/api/surah/${surahId}`, {
+        next: { revalidate: 10 },
+      })
       const data = await res.json()
       setSurah(data)
     },

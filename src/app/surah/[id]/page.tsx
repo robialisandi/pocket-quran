@@ -1,15 +1,13 @@
-'use client'
+import Ayat from '@/components/Ayat'
 
-import FrameAyat from '@/components/FrameAyat'
-import useSurah from '@/hook/useSurah'
-
-type Props = {
+interface Props {
   params: { id: string }
 }
 
-export default function SurahDetailPage({ params }: Props) {
+export default async function SurahDetailPage({ params }: Props) {
   const { id } = params
-  const surah = useSurah(id)
+  const res = await import(`../../../data/surah-data/${id}.ts`)
+  const surah = await res.default[id]
 
   return (
     <>
@@ -23,12 +21,7 @@ export default function SurahDetailPage({ params }: Props) {
       </div>
       {surah.text &&
         Object.values(surah.text).map((ayat: any, index: number) => (
-          <div className="flex flex-col items-end pb-5 px-4" key={index}>
-            <span className="text-right font-arabic text-2xl text-[#2F6742]">
-              {ayat}
-            </span>
-            <FrameAyat number={index + 1} />
-          </div>
+          <Ayat arabic={ayat} noAyat={index + 1} key={index} />
         ))}
     </>
   )
