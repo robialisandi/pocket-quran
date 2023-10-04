@@ -1,4 +1,6 @@
 import Ayat from '@/components/Ayat'
+import Pagination from '@/components/Pagination'
+import { SurahInfoPage } from '@/data/surah-info'
 
 interface Props {
   params: { id: string }
@@ -6,23 +8,27 @@ interface Props {
 
 export default async function SurahDetailPage({ params }: Props) {
   const { id } = params
-  const res = await import(`../../../data/surah-data/${id}.ts`)
-  const surah = await res.default[id]
+  const resData = await import(`../../../data/surah-data/${id}.ts`)
+  const surahData = await resData.default[id]
+  const resInfo = await import(`../../../data/surah-info/${id}.ts`)
+  const surahInfo: SurahInfoPage = await resInfo.default
 
   return (
     <>
-      <div className="flex justify-between items-center py-2 px-4 bg-[#c8e0d5] mb-5">
+      <div className="flex justify-between items-center py-2 px-4 bg-[#c8e0d5]">
         <h1 className="font-bold text-[#2F6742]">
-          {surah.number}. {surah.name_latin}
+          {surahInfo.current.index}. {surahInfo.current.latin}
         </h1>
         <h1 className="font-bold text-[10px] text-[#7b9a8e]">
-          {surah.number_of_ayah} Ayat, {surah.translations?.id.name}
+          {surahInfo.current.ayah_count} Ayat, {surahInfo.current.translation}
         </h1>
       </div>
-      {surah.text &&
-        Object.values(surah.text).map((ayat: any, index: number) => (
+      <Pagination surahInfo={surahInfo} />
+      {surahData.text &&
+        Object.values(surahData.text).map((ayat: any, index: number) => (
           <Ayat arabic={ayat} noAyat={index + 1} key={index} />
         ))}
+      <Pagination surahInfo={surahInfo} />
     </>
   )
 }

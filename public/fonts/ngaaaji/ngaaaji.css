@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'ngaaaji';
+  src:  url('./ngaaaji.eot?1e74ik');
+  src:  url('./ngaaaji.eot?1e74ik#iefix') format('embedded-opentype'),
+    url('./ngaaaji.ttf?1e74ik') format('truetype'),
+    url('./ngaaaji.woff?1e74ik') format('woff'),
+    url('./ngaaaji.svg?1e74ik#ngaaaji') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ng-"], [class*=" ng-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'ngaaaji' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ng-ayah:before {
+  content: "\e900";
+}

@@ -7,11 +7,17 @@ interface Props {
 
 const Ayat = async ({ arabic, noAyat }: Props) => {
   return (
-    <div className="flex flex-col items-end pb-5 px-4">
-      <span className="text-right font-arabic text-2xl text-[#2F6742]">
+    <div className="flex flex-col items-end px-4 border-b mb-7 pb-5 border-gray-300">
+      <p className="text-right font-arabic text-2xl text-[#2F6742]">
         {arabic}
-      </span>
-      <FrameAyat number={noAyat} />
+        {/* <FrameAyat number={noAyat} /> */}
+        <span className=" font-bold text-3xl pt-[4px] mr-2">
+          ۝
+          {noAyat.toLocaleString('ar-u-nu-arab', {
+            useGrouping: false,
+          })}
+        </span>
+      </p>
     </div>
   )
 }
