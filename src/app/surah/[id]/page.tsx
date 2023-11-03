@@ -9,8 +9,8 @@ interface Props {
 export default async function SurahDetailPage({ params }: Props) {
   const { id } = params
   const resData = await import(`../../../data/surah-data/${id}.ts`)
-  const surahData = await resData.default[id]
   const resInfo = await import(`../../../data/surah-info/${id}.ts`)
+  const surahData = await resData.default[id]
   const surahInfo: SurahInfoPage = await resInfo.default
 
   return (
@@ -26,7 +26,12 @@ export default async function SurahDetailPage({ params }: Props) {
       <Pagination surahInfo={surahInfo} />
       {surahData.text &&
         Object.values(surahData.text).map((ayat: any, index: number) => (
-          <Ayat arabic={ayat} noAyat={index + 1} key={index} />
+          <Ayat
+            arabic={ayat}
+            translate={surahData.translations.id.text[index + 1]}
+            noAyat={index + 1}
+            key={index}
+          />
         ))}
       <Pagination surahInfo={surahInfo} />
     </>
