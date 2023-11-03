@@ -1,13 +1,21 @@
+'use client'
+
 import FrameAyat from '@/components/FrameAyat'
+import { useState } from 'react'
 
 interface Props {
   arabic: string
   noAyat: number
+  translate: string
 }
 
-const Ayat = async ({ arabic, noAyat }: Props) => {
+const Ayat = ({ arabic, noAyat, translate }: Props) => {
+  const [show, setShow] = useState<boolean>(false)
   return (
-    <div className="flex flex-col items-end px-4 border-b mb-7 pb-5 border-gray-300">
+    <div
+      onClick={() => setShow(!show)}
+      className="flex flex-col items-end px-4 border-b py-5 border-gray-300 cursor-pointer"
+    >
       <p className="text-right font-arabic text-2xl text-[#2F6742]">
         {arabic}
         {/* <FrameAyat number={noAyat} /> */}
@@ -18,6 +26,7 @@ const Ayat = async ({ arabic, noAyat }: Props) => {
           })}
         </span>
       </p>
+      {show ? <p className="pt-4">{translate}</p> : null}
     </div>
   )
 }
