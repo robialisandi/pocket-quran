@@ -50,7 +50,7 @@ const MenuAyat = ({ content, hashtags, noSurah, noAyat }: Props) => {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem>
-              <WhatsappShareButton url={'ngaaaji.vercel.app'} title={content}>
+              <WhatsappShareButton url={URL} title={content}>
                 <div className="flex justify-center items-center">
                   <WhatsappIcon className="h-4 w-4 mr-2" />
                   Share Whatsapp
