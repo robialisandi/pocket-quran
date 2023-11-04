@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Rowdies } from 'next/font/google'
-import { classNames } from '@/utils/class-names'
+import { cn } from '@/lib/utils'
+import MaxWidthWrapper from './MaxWidthWrapper'
 
 const rowdies = Rowdies({
   subsets: ['latin'],
@@ -9,17 +10,18 @@ const rowdies = Rowdies({
 
 export default function Header() {
   return (
-    <header className="flex justify-center items-center py-4 px-2 sticky top-0 bg-green-linear">
-      <Link href="/">
-        <h1
-          className={classNames(
-            rowdies.className,
-            'font-bold text-2xl text-white',
-          )}
-        >
-          Ńgäâåjį.
-        </h1>
-      </Link>
-    </header>
+    <nav className="sticky top-0 z-50">
+      <MaxWidthWrapper>
+        <div className="flex justify-center items-center py-4 px-2 bg-green-linear">
+          <Link href="/">
+            <h1
+              className={cn(rowdies.className, 'font-bold text-2xl text-white')}
+            >
+              Ńgäâåjį.
+            </h1>
+          </Link>
+        </div>
+      </MaxWidthWrapper>
+    </nav>
   )
 }
