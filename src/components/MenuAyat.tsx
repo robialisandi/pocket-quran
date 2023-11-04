@@ -26,7 +26,7 @@ interface Props {
 }
 
 const MenuAyat = ({ content, hashtags, noSurah, noAyat }: Props) => {
-  const URL = `ngaaaji.vercel.app/surah/${noSurah}/${noAyat}`
+  const URL = `https://ngaaaji.vercel.app/surah/${noSurah}/${noAyat}`
 
   return (
     <div className="py-5">
