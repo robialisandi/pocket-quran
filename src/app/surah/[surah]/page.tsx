@@ -3,14 +3,14 @@ import Pagination from '@/components/Pagination'
 import { SurahInfoPage } from '@/data/surah-info'
 
 interface Props {
-  params: { id: string }
+  params: { surah: string }
 }
 
 export default async function SurahDetailPage({ params }: Props) {
-  const { id } = params
-  const resData = await import(`../../../data/surah-data/${id}.ts`)
-  const resInfo = await import(`../../../data/surah-info/${id}.ts`)
-  const surahData = await resData.default[id]
+  const { surah } = params
+  const resData = await import(`../../../data/surah-data/${surah}.ts`)
+  const resInfo = await import(`../../../data/surah-info/${surah}.ts`)
+  const surahData = await resData.default[surah]
   const surahInfo: SurahInfoPage = await resInfo.default
 
   return (
@@ -30,6 +30,7 @@ export default async function SurahDetailPage({ params }: Props) {
             arabic={ayat}
             translate={surahData.translations.id.text[index + 1]}
             noAyat={index + 1}
+            noSurah={surah}
             key={index}
           />
         ))}
