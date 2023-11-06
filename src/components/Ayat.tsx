@@ -24,6 +24,18 @@ const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate }: Props) => {
   const content = `${arabic}\n\n${translate} (QS. ${noSurah}:${noAyat})`
   const cardRef = useRef<HTMLDivElement>(null)
 
+  const randomIntFromInterval = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+  const imgUrl = `/poster/poster${randomIntFromInterval(1, 25)}.jpg`
+
+  const styling = {
+    backgroundImage: `url('${imgUrl}')`,
+    width: '100%',
+    backgroundSize: 'cover',
+  }
+
   return (
     <div className="flex flex-col justify-between border-b">
       <div className="flex items-center">
@@ -52,30 +64,44 @@ const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate }: Props) => {
         </div>
       </div>
       {show ? <p className="px-4 pb-4">{translate}</p> : null}
+      <div className="hidden" ref={cardRef} style={styling}>
+        <div className="p-6 flex justify-between h-[890px] flex-col shadow-[inset_0px_0px_0px_2600px_rgb(0,0,0,0.38)]">
+          <h1
+            className={cn(
+              rowdies.className,
+              'font-bold text-base text-white text-center flex-1 mt-12',
+            )}
+          >
+            Ńgäâåjį<span className="text-yellow-500">.</span>
+          </h1>
+          <div className="px-8">
+            <div className="mb-24">
+              <div className="flex flex-col items-end px-4 py-5 border-gray-300 w-full">
+                <p className="font-arabic text-md text-center text-white">
+                  {arabic}
+                  <span className="text-3xl pt-[4px] mr-2">
+                    ۝
+                    {noAyat.toLocaleString('ar-u-nu-arab', {
+                      useGrouping: false,
+                    })}
+                  </span>
+                </p>
+              </div>
+              <p className="text-white text-center rounded-3xl">{translate}</p>
+              <p className="text-center text-[10px] mt-2 text-white">{`(QS. ${nameSurah}: ${noAyat})`}</p>
+            </div>
 
-      <div className="hidden rounded-xl bg-[#eef5ef] p-3" ref={cardRef}>
-        <h1
-          className={cn(
-            rowdies.className,
-            'font-bold text-2xl text-[#2F6742] text-center',
-          )}
-        >
-          Ńgäâåjį.
-        </h1>
-        <p className="text-center text-[10px] mt-2 text-[#2F6742]">{`QS. ${nameSurah}, ayat ${noAyat}`}</p>
-        <div className="flex flex-col items-end px-4 py-5 border-gray-300 w-full">
-          <p className="text-right font-arabic text-2xl text-[#2F6742]">
-            {arabic}
-            <span className="text-3xl pt-[4px] mr-2">
-              ۝
-              {noAyat.toLocaleString('ar-u-nu-arab', {
-                useGrouping: false,
-              })}
-            </span>
-          </p>
+            <div className="flex justify-center mb-8 items-center">
+              <span className="text-2xl mr-3 rotate-[292deg]">🍉</span>
+              <div>
+                <p className="text-[10px] text-white">
+                  We Stand With Palestine 🤍🖤💚❤️
+                </p>
+                <p className="text-[8px] text-[#c1ccc3]">{`https://ngaaaji.vercel.app/surah/${noSurah}/${noAyat}`}</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <p className="bg-[#c8e0d5] p-5 rounded-3xl">{translate}</p>
-        <p className="text-[10px] text-right text-[#c1ccc3]">{`https://ngaaaji.vercel.app/surah/${noSurah}/${noAyat}`}</p>
       </div>
     </div>
   )

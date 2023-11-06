@@ -31,9 +31,9 @@ interface Props {
 
 const options = {
   allowTaint: true,
-  useCORS: true,
-  backgroundColor: '#eef5ef',
-  removeContainer: true,
+  useCORS: false,
+  backgroundColor: '#000',
+  removeContainer: false,
 }
 
 const MenuAyat = ({
@@ -58,11 +58,12 @@ const MenuAyat = ({
           element.style.display = 'block'
         },
       })
-      const asURL = result.toDataURL('image/png')
+      // document.body.appendChild(result)
+      const asURL = result.toDataURL('image/jpeg')
       const anchor = document.createElement('a')
 
       anchor.href = asURL
-      anchor.download = `${noSurah} QS ${nameSurah}, ayat ${noAyat}.png`
+      anchor.download = `${noSurah} QS ${nameSurah}, ayat ${noAyat}.jpeg`
 
       anchor.click()
       anchor.remove()
