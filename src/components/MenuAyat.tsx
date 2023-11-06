@@ -17,16 +17,59 @@ import {
 import { Button } from './ui/button'
 import Link from 'next/link'
 import { MoreVertical } from 'lucide-react'
+import { RefObject } from 'react'
+import html2canvas from 'html2canvas'
 
 interface Props {
   content: string
   hashtags: string
   noSurah: string
   noAyat: string
+  nameSurah: string
+  cardRef: RefObject<HTMLElement>
 }
 
-const MenuAyat = ({ content, hashtags, noSurah, noAyat }: Props) => {
+const options = {
+  allowTaint: true,
+  useCORS: true,
+  backgroundColor: null,
+  removeContainer: false,
+}
+
+const MenuAyat = ({
+  content,
+  hashtags,
+  noSurah,
+  noAyat,
+  nameSurah,
+  cardRef,
+}: Props) => {
   const URL = `https://ngaaaji.vercel.app/surah/${noSurah}/${noAyat}`
+
+  const prepareURL = async () => {
+    const cardElement = cardRef.current
+
+    if (!cardElement) return
+
+    try {
+      const result = await html2canvas(cardElement, {
+        ...options,
+        onclone(_, element) {
+          element.style.display = 'block'
+        },
+      })
+      const asURL = result.toDataURL('image/png', 1.0)
+      const anchor = document.createElement('a')
+
+      anchor.href = asURL
+      anchor.download = `${noSurah} QS ${nameSurah}, ayat ${noAyat}.png`
+
+      anchor.click()
+      anchor.remove()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="py-5">
@@ -45,6 +88,9 @@ const MenuAyat = ({ content, hashtags, noSurah, noAyat }: Props) => {
               >
                 Tafsir
               </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <p onClick={prepareURL}>Screenshot</p>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
