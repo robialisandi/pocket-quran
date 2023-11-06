@@ -64,17 +64,17 @@ const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate }: Props) => {
         </div>
       </div>
       {show ? <p className="px-4 pb-4">{translate}</p> : null}
-      <div className="hidden" ref={cardRef} style={styling}>
-        <div className="p-6 flex justify-between h-[890px] flex-col shadow-[inset_0px_0px_150px_300px_rgb(0,0,0,0.38)]">
+      <div className="hidden relative" ref={cardRef} style={styling}>
+        <div className="p-6 flex justify-between h-[890px] flex-col relative">
           <h1
             className={cn(
               rowdies.className,
-              'font-bold text-base text-white text-center flex-1 mt-12',
+              'font-bold text-base text-white text-center flex justify-center w-full left-0 top-7 mt-12 absolute z-10',
             )}
           >
             Ńgäâåjį<span className="text-yellow-500">.</span>
           </h1>
-          <div className="px-8">
+          <div className="px-8 flex flex-col absolute justify-center w-full left-0 bottom-6 z-10">
             <div className="mb-24">
               <div className="flex flex-col items-end px-4 py-5 border-gray-300 w-full">
                 <p className="font-arabic text-md text-center text-white">
@@ -102,6 +102,7 @@ const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate }: Props) => {
             </div>
           </div>
         </div>
+        <div className="bg-black opacity-[0.35] absolute top-0 left-0 h-full w-full"></div>
       </div>
     </div>
   )
