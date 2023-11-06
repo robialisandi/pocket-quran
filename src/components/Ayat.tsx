@@ -63,10 +63,10 @@ const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate }: Props) => {
           Ńgäâåjį.
         </h1>
         <p className="text-center text-[10px] mt-2 text-[#2F6742]">{`QS. ${nameSurah}, ayat ${noAyat}`}</p>
-        <div className="flex flex-col items-end px-4 py-5 border-gray-300 cursor-pointer relative w-full">
+        <div className="flex flex-col items-end px-4 py-5 border-gray-300 w-full">
           <p className="text-right font-arabic text-2xl text-[#2F6742]">
             {arabic}
-            <span className=" font-bold text-3xl pt-[4px] mr-2">
+            <span className="text-3xl pt-[4px] mr-2">
               ۝
               {noAyat.toLocaleString('ar-u-nu-arab', {
                 useGrouping: false,
@@ -74,9 +74,8 @@ const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate }: Props) => {
             </span>
           </p>
         </div>
-        <p className="bg-[#c8e0d5] p-5 rounded-none sm:rounded-3xl">
-          {translate}
-        </p>
+        <p className="bg-[#c8e0d5] p-5 rounded-3xl">{translate}</p>
+        <p className="text-[10px] text-right text-[#c1ccc3]">{`https://ngaaaji.vercel.app/surah/${noSurah}/${noAyat}`}</p>
       </div>
     </div>
   )
