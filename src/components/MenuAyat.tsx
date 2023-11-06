@@ -32,8 +32,8 @@ interface Props {
 const options = {
   allowTaint: true,
   useCORS: true,
-  backgroundColor: null,
-  removeContainer: false,
+  backgroundColor: '#eef5ef',
+  removeContainer: true,
 }
 
 const MenuAyat = ({
@@ -58,7 +58,7 @@ const MenuAyat = ({
           element.style.display = 'block'
         },
       })
-      const asURL = result.toDataURL('image/png', 1.0)
+      const asURL = result.toDataURL('image/png')
       const anchor = document.createElement('a')
 
       anchor.href = asURL
@@ -66,6 +66,12 @@ const MenuAyat = ({
 
       anchor.click()
       anchor.remove()
+
+      /* trigger instagram storie */
+      // const openLink = document.createElement('a')
+      // openLink.href = 'instagram://story-camera'
+      // openLink.click()
+      // openLink.remove()
     } catch (error) {
       console.log(error)
     }
@@ -86,11 +92,16 @@ const MenuAyat = ({
                 href={`/surah/${noSurah}/${noAyat}`}
                 className="w-full px-2 py-1.5"
               >
-                Tafsir
+                Lihat Tafsir
               </Link>
             </DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
             <DropdownMenuItem>
-              <p onClick={prepareURL}>Screenshot</p>
+              <Link href="" onClick={prepareURL}>
+                Generate Poster
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />

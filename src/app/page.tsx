@@ -1,5 +1,4 @@
 import CardShadow from '@/components/CardShadow'
-import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 
 export default function Home() {
   const menus = [
