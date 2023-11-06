@@ -31,6 +31,7 @@ export default async function SurahDetailPage({ params }: Props) {
             translate={surahData.translations.id.text[index + 1]}
             noAyat={index + 1}
             noSurah={surah}
+            nameSurah={surahData.name_latin}
             key={index}
           />
         ))}
