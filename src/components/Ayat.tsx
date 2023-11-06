@@ -65,7 +65,7 @@ const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate }: Props) => {
       </div>
       {show ? <p className="px-4 pb-4">{translate}</p> : null}
       <div className="hidden" ref={cardRef} style={styling}>
-        <div className="p-6 flex justify-between h-[890px] flex-col shadow-[inset_0px_0px_0px_2600px_rgb(0,0,0,0.38)]">
+        <div className="p-6 flex justify-between h-[890px] flex-col shadow-[inset_0px_0px_150px_300px_rgb(0,0,0,0.38)]">
           <h1
             className={cn(
               rowdies.className,
