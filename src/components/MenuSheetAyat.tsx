@@ -38,6 +38,8 @@ const options = {
   useCORS: false,
   backgroundColor: '#000',
   removeContainer: false,
+  width: 1080,
+  height: 1920,
 }
 
 const MenuSheetAyat = ({ item }: Props) => {
