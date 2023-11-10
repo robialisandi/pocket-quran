@@ -86,7 +86,7 @@ const MenuSheetAyat = ({ item }: Props) => {
         <SheetTrigger>
           <MoreVertical className="h-4 2-4" />
         </SheetTrigger>
-        <SheetContent side="bottom" className="w-[400px] sm:w-[540px] mx-auto">
+        <SheetContent side="bottom" className="md:w-[540px] mx-auto">
           <SheetHeader>
             <SheetTitle>
               QS. {item.nameSurah}: {item.noAyat}
@@ -100,14 +100,14 @@ const MenuSheetAyat = ({ item }: Props) => {
               href={`/surah/${item.noSurah}/${item.noAyat}`}
               className="w-full px-2 py-1.5 flex items-center"
             >
-              <ChevronDoubleRightIcon className="w-5 h-5 mr-2" />
-              Lihat Tafsir
+              <ChevronDoubleRightIcon className="w-5 h-5 mr-1" />
+              Tafsir
             </Link>
             <div className="flex gap-2 items-center">
               <span className="mr-2">Share:</span>
               <WhatsappShareButton url={URL} title={item.content}>
                 <div className="flex justify-center items-center">
-                  <WhatsappIcon size={42} round />
+                  <WhatsappIcon size={38} round />
                 </div>
               </WhatsappShareButton>
               <TwitterShareButton
@@ -116,12 +116,12 @@ const MenuSheetAyat = ({ item }: Props) => {
                 hashtags={['ngajiyuk', 'ngaaaji']}
               >
                 <div className="flex justify-center items-center">
-                  <TwitterIcon size={42} round />
+                  <TwitterIcon size={38} round />
                 </div>
               </TwitterShareButton>
               <TelegramShareButton url={URL} title={item.content}>
                 <div className="flex justify-center items-center">
-                  <TelegramIcon size={42} round />
+                  <TelegramIcon size={38} round />
                 </div>
               </TelegramShareButton>
             </div>
