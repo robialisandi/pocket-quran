@@ -40,15 +40,18 @@ const Poster = forwardRef(
           <h1
             className={cn(
               rowdies.className,
-              'font-bold text-base text-white text-center flex justify-center w-full left-0 top-7 mt-36 absolute z-10 text-[30px]',
+              'font-bold text-base text-white text-center flex justify-center w-full left-0 top-7 mt-40 absolute z-10 text-[35px]',
             )}
           >
             Ńgäâåjį<span className="text-yellow-500">.</span>
           </h1>
           <div className="px-20 flex flex-col absolute justify-center w-full left-0 bottom-6 z-10">
-            <div className="mb-24">
+            <div className="mb-28">
               <div className="flex flex-col items-end px-4 py-5 border-gray-300 w-full">
-                <p className="font-arabic text-md text-center text-white text-[30px]">
+                <p
+                  className="font-arabic text-md text-center text-white text-[40px]"
+                  style={{ textShadow: '1px 0 15px #FC0' }}
+                >
                   {item.arabic}
                   <span className="text-3xl pt-[4px] mr-2">
                     ۝
@@ -58,19 +61,19 @@ const Poster = forwardRef(
                   </span>
                 </p>
               </div>
-              <p className="text-white text-center rounded-3xl text-[30px]">
+              <p className="text-white text-center rounded-3xl text-[35px]">
                 {item.translate}
               </p>
               <p className="text-center mt-2 text-white text-[25px]">{`(QS. ${item.nameSurah}: ${item.noAyat})`}</p>
             </div>
 
-            <div className="flex justify-center mb-32 items-center">
-              <span className="text-5xl mr-5 rotate-[292deg]">🍉</span>
+            <div className="flex justify-center mb-[150px] items-center">
+              <span className="text-[45px] mr-5 rotate-[292deg]">🍉</span>
               <div>
-                <p className="text-[20px] text-white">
+                <p className="text-[25px] text-white">
                   We Stand With Palestine 🤍🖤💚❤️
                 </p>
-                <p className="text-[18px] text-[#c1ccc3]">{`https://ngaaaji.vercel.app/surah/${item.noSurah}/${item.noAyat}`}</p>
+                <p className="text-[20px] text-[#c1ccc3]">{`https://ngaaaji.vercel.app/surah/${item.noSurah}/${item.noAyat}`}</p>
               </div>
             </div>
           </div>
