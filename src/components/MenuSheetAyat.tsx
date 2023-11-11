@@ -49,7 +49,7 @@ const MenuSheetAyat = ({ item }: Props) => {
 
   const cardRef = useRef<HTMLDivElement | null>(null)
 
-  const prepareURL = async () => {
+  const prepareURL = async (isSquare = false) => {
     setLoading(true)
     const cardElement = cardRef.current
 
@@ -58,8 +58,17 @@ const MenuSheetAyat = ({ item }: Props) => {
     try {
       const result = await html2canvas(cardElement, {
         ...options,
+        height: isSquare ? 1080 : 1920,
         onclone(_, element) {
+          const heading = element.querySelector('h1')
+          const footers = element.getElementsByClassName('footer')
+
+          if (heading) heading.style.marginTop = isSquare ? '40px' : '160px'
+          if (footers)
+            footers[0].classList.add(isSquare ? 'mb-[50px]' : 'mb-[150px]')
+
           element.style.display = 'block'
+          element.style.height = isSquare ? '1080px' : '1920px'
         },
       })
       // document.body.appendChild(result)
@@ -72,6 +81,7 @@ const MenuSheetAyat = ({ item }: Props) => {
       anchor.click()
       anchor.remove()
       setLoading(false)
+
       /* trigger instagram storie */
       // const openLink = document.createElement('a')
       // openLink.href = 'instagram://story-camera'
@@ -84,7 +94,7 @@ const MenuSheetAyat = ({ item }: Props) => {
 
   return (
     <>
-      <Sheet>
+      <Sheet modal={false}>
         <SheetTrigger>
           <MoreVertical className="h-4 2-4" />
         </SheetTrigger>
@@ -128,18 +138,32 @@ const MenuSheetAyat = ({ item }: Props) => {
               </TelegramShareButton>
             </div>
           </div>
-          <Button
-            onClick={prepareURL}
-            className="w-full mt-10"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <ImageDown className="mr-2 h-4 w-4" />
-            )}
-            Generate Poster
-          </Button>
+          <div className="flex gap-3">
+            <Button
+              onClick={() => prepareURL()}
+              className="w-full mt-10"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <ImageDown className="mr-2 h-4 w-4" />
+              )}
+              Portrait Poster
+            </Button>
+            <Button
+              onClick={() => prepareURL(true)}
+              className="w-full mt-10"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <ImageDown className="mr-2 h-4 w-4" />
+              )}
+              Square Poster
+            </Button>
+          </div>
           <Poster item={item} ref={cardRef} />
         </SheetContent>
       </Sheet>
