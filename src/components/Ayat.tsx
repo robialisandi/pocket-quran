@@ -14,7 +14,7 @@ interface Props {
 
 const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate }: Props) => {
   const [show, setShow] = useState<boolean>(false)
-  const content = `${arabic}\n\n${translate} (QS. ${noSurah}:${noAyat})`
+  const content = `${arabic}\n\n${translate} (QS. ${nameSurah}: ${noAyat})`
 
   return (
     <div className="flex flex-col justify-between border-b">

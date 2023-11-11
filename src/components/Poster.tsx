@@ -33,10 +33,10 @@ const Poster = forwardRef(
 
     return (
       <div
-        className="hidden relative bg-cover w-[1080px] h-[1920px] overflow-hidden"
+        className="hidden relative bg-cover bg-no-repeat bg-center w-[1080px] h-[1920px] overflow-hidden"
         ref={ref}
       >
-        <div className="p-6 flex justify-between h-[1920px] flex-col relative">
+        <div className="p-6 flex justify-between h-full flex-col relative">
           <h1
             className={cn(
               rowdies.className,
@@ -50,7 +50,7 @@ const Poster = forwardRef(
               <div className="flex flex-col items-end px-4 py-5 border-gray-300 w-full">
                 <p
                   className="font-arabic text-md text-center text-white text-[40px]"
-                  style={{ textShadow: '1px 0 15px #FC0' }}
+                  style={{ textShadow: '1px 0 0px #FC0' }}
                 >
                   {item.arabic}
                   <span className="text-3xl pt-[4px] mr-2">
@@ -67,11 +67,11 @@ const Poster = forwardRef(
               <p className="text-center mt-2 text-white text-[25px]">{`(QS. ${item.nameSurah}: ${item.noAyat})`}</p>
             </div>
 
-            <div className="flex justify-center mb-[150px] items-center">
+            <div className="footer flex justify-center mb-[150px] items-center">
               <span className="text-[45px] mr-5 rotate-[292deg]">🍉</span>
               <div>
                 <p className="text-[25px] text-white">
-                  We Stand With Palestine 🤍🖤💚❤️
+                  We Stand With Palestine ❤️🖤🤍💚
                 </p>
                 <p className="text-[20px] text-[#c1ccc3]">{`https://ngaaaji.vercel.app/surah/${item.noSurah}/${item.noAyat}`}</p>
               </div>
