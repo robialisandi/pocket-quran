@@ -8,9 +8,10 @@ import { useState } from 'react'
 
 interface Props {
   params: { surah: string }
+  onlySurah: boolean
 }
 
-export default function SurahDetailPage({ params }: Props) {
+export default function SurahDetailPage({ params, onlySurah = false }: Props) {
   const [reverse, setReverse] = useState(false)
 
   const { surah } = params
@@ -21,22 +22,25 @@ export default function SurahDetailPage({ params }: Props) {
     `../../../data/surah-info/${surah}.ts`,
   ).default
 
-  const handleReverseChange = (newReverse: boolean) => {
-    setReverse(newReverse)
-  }
+  const handleReverseChange = (newReverse: boolean) => setReverse(newReverse)
 
   return (
     <>
-      <div className="flex justify-between items-center py-2 px-4 bg-[#c8e0d5]">
-        <h1 className="font-bold text-[#2F6742]">
-          {surahInfo.current.index}. {surahInfo.current.latin}
-        </h1>
-        <h1 className="font-bold text-[10px] text-[#7b9a8e]">
-          {surahInfo.current.ayah_count} Ayat, {surahInfo.current.translation}
-        </h1>
-      </div>
-      <SwitchReverse onReverseChange={handleReverseChange} />
-      <Pagination surahInfo={surahInfo} />
+      {!onlySurah && (
+        <>
+          <div className="flex justify-between items-center py-2 px-4 bg-[#c8e0d5]">
+            <h1 className="font-bold text-[#2F6742]">
+              {surahInfo.current.index}. {surahInfo.current.latin}
+            </h1>
+            <h1 className="font-bold text-[10px] text-[#7b9a8e]">
+              {surahInfo.current.ayah_count} Ayat,{' '}
+              {surahInfo.current.translation}
+            </h1>
+          </div>
+          <SwitchReverse onReverseChange={handleReverseChange} />
+          <Pagination surahInfo={surahInfo} />
+        </>
+      )}
       {surahData.text &&
         Object.values(surahData.text).map((ayat: any, index: number) => (
           <Ayat
@@ -49,7 +53,7 @@ export default function SurahDetailPage({ params }: Props) {
             key={index}
           />
         ))}
-      <Pagination surahInfo={surahInfo} />
+      {!onlySurah && <Pagination surahInfo={surahInfo} />}
     </>
   )
 }

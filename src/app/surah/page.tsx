@@ -1,6 +1,7 @@
 'use client'
 
 import CardSurah from '@/components/CardSurah'
+import IconBar from '@/components/IconBar'
 import SearchInput from '@/components/SearchInput'
 import SkeletonSurah from '@/components/SkeletonSurah'
 import MakkiyahMadaniyah from '@/data/makkiyah-madaniyah'
@@ -52,7 +53,7 @@ export default function SurahPage() {
   return (
     <div className="flex flex-col">
       <h1 className="flex items-center py-2 font-bold px-4 text-[#2F6742] bg-[#c8e0d5]">
-        <ListIcon className="w-4 h-4 mr-2" />
+        <IconBar icon="1.surah.svg" />
         Daftar Surat
       </h1>
       <SearchInput
