@@ -31,7 +31,7 @@ export default function Pagination({
   }
 
   return (
-    <div className="flex justify-between py-5 px-2 items-center mb-5">
+    <div className="flex justify-between py-5 px-2 items-center bg-[#e3eae4]">
       <Link href={`/surah/${prev?.index}`}>
         <div className="flex justify-center items-center gap-2">
           <ArrowLongLeftIcon className="w-5 h-5" />

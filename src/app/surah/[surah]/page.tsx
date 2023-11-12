@@ -1,17 +1,29 @@
+'use client'
+
 import Ayat from '@/components/Ayat'
 import Pagination from '@/components/Pagination'
+import SwitchReverse from '@/components/SwitchReverse'
 import { SurahInfoPage } from '@/data/surah-info'
+import { useState } from 'react'
 
 interface Props {
   params: { surah: string }
 }
 
-export default async function SurahDetailPage({ params }: Props) {
+export default function SurahDetailPage({ params }: Props) {
+  const [reverse, setReverse] = useState(false)
+
   const { surah } = params
-  const resData = await import(`../../../data/surah-data/${surah}.ts`)
-  const resInfo = await import(`../../../data/surah-info/${surah}.ts`)
-  const surahData = await resData.default[surah]
-  const surahInfo: SurahInfoPage = await resInfo.default
+  const surahData = require(`../../../data/surah-data/${surah}.ts`).default[
+    surah
+  ]
+  const surahInfo: SurahInfoPage = require(
+    `../../../data/surah-info/${surah}.ts`,
+  ).default
+
+  const handleReverseChange = (newReverse: boolean) => {
+    setReverse(newReverse)
+  }
 
   return (
     <>
@@ -23,6 +35,7 @@ export default async function SurahDetailPage({ params }: Props) {
           {surahInfo.current.ayah_count} Ayat, {surahInfo.current.translation}
         </h1>
       </div>
+      <SwitchReverse onReverseChange={handleReverseChange} />
       <Pagination surahInfo={surahInfo} />
       {surahData.text &&
         Object.values(surahData.text).map((ayat: any, index: number) => (
@@ -32,6 +45,7 @@ export default async function SurahDetailPage({ params }: Props) {
             noAyat={index + 1}
             noSurah={surah}
             nameSurah={surahData.name_latin}
+            reverse={reverse}
             key={index}
           />
         ))}
