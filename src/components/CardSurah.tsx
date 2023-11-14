@@ -4,12 +4,17 @@ import FrameAyat from './FrameAyat'
 
 export default function CardSurah({
   surahInfoItem,
+  isDev = false,
 }: {
   surahInfoItem: SurahInfoItem
+  isDev?: boolean
 }) {
+  let link = `/surah`
+  if (isDev) link = `/surah-dev`
+
   return (
     <Link
-      href={`/surah/${surahInfoItem.index}`}
+      href={`${link}/${surahInfoItem.index}`}
       className="flex flex-col justify-center gap-4 p-5 border md:rounded-xl bg-white"
     >
       <div className="flex justify-between items-center">
