@@ -25,7 +25,7 @@ export default function SurahDetailPage({ params, onlySurah = false }: Props) {
   const handleReverseChange = (newReverse: boolean) => setReverse(newReverse)
 
   return (
-    <>
+    <div className="wrapper">
       {!onlySurah && (
         <>
           <div className="flex justify-between items-center py-2 px-4 bg-[#c8e0d5]">
@@ -54,6 +54,6 @@ export default function SurahDetailPage({ params, onlySurah = false }: Props) {
           />
         ))}
       {!onlySurah && <Pagination surahInfo={surahInfo} />}
-    </>
+    </div>
   )
 }
