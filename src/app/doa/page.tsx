@@ -9,19 +9,12 @@ export default function DoaPage() {
         Doa-doa
       </h1>
       {dailyDoa.map((item, index) => (
-        <div
-          className="flex flex-col gap-4 py-5 px-4 rounded-2xl bg-white border mb-2 mx-2 md:mx-0"
-          key={index}
-        >
+        <div className="flex flex-col gap-4 py-5 px-4 rounded-2xl bg-white border mb-2 mx-2 md:mx-0" key={index}>
           <span className="font-bold text-lg">{item.title}</span>
-          <span className="text-2xl font-arabic text-right text-[#2F6742]">
-            {item.arabic}
-          </span>
+          <span className="text-2xl font-arabic text-right text-[#2F6742]">{item.arabic}</span>
           <span className="text-sm italic">{item.latin}</span>
         </div>
       ))}
     </div>
   )
 }
-
-// e8efe9

@@ -12,27 +12,14 @@ interface Props {
   reverse: boolean
 }
 
-const Ayat = ({
-  arabic,
-  noSurah,
-  noAyat,
-  nameSurah,
-  translate,
-  reverse,
-}: Props) => {
+const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate, reverse }: Props) => {
   const [show, setShow] = useState<boolean>(false)
   const content = `${arabic}\n\n${translate} (QS. ${nameSurah}: ${noAyat})`
 
   return (
-    <div
-      className={`flex flex-col justify-between border-b ${
-        show && 'bg-[#e8efe9]'
-      }`}
-    >
+    <div className={`flex flex-col justify-between border-b ${show && 'bg-[#e8efe9]'}`}>
       <div className="flex items-center">
-        <MenuSheetAyat
-          item={{ content, arabic, noSurah, noAyat, nameSurah, translate }}
-        />
+        <MenuSheetAyat item={{ content, arabic, noSurah, noAyat, nameSurah, translate }} />
         <div
           onClick={() => setShow(!show)}
           className={`flex flex-col pr-4 py-5 border-gray-300 cursor-pointer relative w-full ${

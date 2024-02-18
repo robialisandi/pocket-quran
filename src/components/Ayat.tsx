@@ -1,8 +1,11 @@
 'use client'
 
-import FrameAyat from '@/components/FrameAyat'
-import { useState } from 'react'
+// import FrameAyat from '@/components/FrameAyat'
+import { useContext, useState } from 'react'
 import MenuSheetAyat from './MenuSheetAyat'
+import { Button } from './ui/button'
+import { Pause, PlayIcon } from 'lucide-react'
+import { AudioContext } from '@/context/audioContext'
 
 interface Props {
   arabic: string
@@ -13,27 +16,37 @@ interface Props {
   reverse: boolean
 }
 
-const Ayat = ({
-  arabic,
-  noSurah,
-  noAyat,
-  nameSurah,
-  translate,
-  reverse,
-}: Props) => {
+const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate, reverse }: Props) => {
   const [show, setShow] = useState<boolean>(false)
+  const { surah, setSurah, ayat, setAyat, setOpen } = useContext(AudioContext)
   const content = `${arabic}\n\n${translate} (QS. ${nameSurah}: ${noAyat})`
 
+  const playAudio = (surahId: string, verseId: number) => {
+    const isSame = noSurah === surah && noAyat.toString() === ayat
+    let surahIdTemp = surahId
+    let verseIdTemp = verseId.toString()
+    if (isSame) {
+      surahIdTemp = ''
+      verseIdTemp = ''
+    }
+    setSurah(surahIdTemp)
+    setAyat(verseIdTemp)
+    setOpen(isSame ? false : true)
+  }
+
   return (
-    <div
-      className={`flex flex-col justify-between border-b ${
-        show && 'bg-[#e8efe9]'
-      }`}
-    >
+    <div className={`flex flex-col justify-between border-b ${show && 'bg-[#e8efe9]'}`}>
       <div className="flex items-center">
-        <MenuSheetAyat
-          item={{ content, arabic, noSurah, noAyat, nameSurah, translate }}
-        />
+        <MenuSheetAyat item={{ content, arabic, noSurah, noAyat, nameSurah, translate }} />
+        <div>
+          <Button variant="outline" size="icon" onClick={() => playAudio(noSurah, noAyat)}>
+            {noSurah === surah && noAyat.toString() === ayat ? (
+              <Pause className="w-4 h-4" />
+            ) : (
+              <PlayIcon className="w-4 h-4" />
+            )}
+          </Button>
+        </div>
         <div
           onClick={() => setShow(!show)}
           className={`flex flex-col pr-4 py-5 border-gray-300 cursor-pointer relative w-full ${

@@ -9,12 +9,8 @@ export default function AyatKursiPage() {
         Ayat Kursi
       </h1>
       <div className="flex flex-col p-4 bg-[#e8efe9] gap-5">
-        <span className="text-right font-arabic text-2xl text-[#2F6742]">
-          {ayatKursi.arabic}
-        </span>
-        <small className="text-sm text-foreground-secondary italic">
-          {ayatKursi.latin}
-        </small>
+        <span className="text-right font-arabic text-2xl text-[#2F6742]">{ayatKursi.arabic}</span>
+        <small className="text-sm text-foreground-secondary italic">{ayatKursi.latin}</small>
       </div>
     </div>
   )
