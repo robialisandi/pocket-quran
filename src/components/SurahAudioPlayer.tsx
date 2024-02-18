@@ -3,7 +3,8 @@
 import { useContext, useEffect, useState } from 'react'
 import AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css'
-import { AudioContext } from './Ayat'
+import { AudioContext } from '@/context/audioContext'
+import MaxWidthWrapper from './MaxWidthWrapper'
 
 const formatNumber = (numberText: string): string => {
   const numParam = parseInt(numberText, 10)
@@ -17,13 +18,13 @@ const formatNumber = (numberText: string): string => {
 }
 
 const SurahAudioPlayer = () => {
-  const dataAudio = useContext(AudioContext)
+  const { surah, ayat, open } = useContext(AudioContext)
   const [src, setSrc] = useState<string>('')
 
   useEffect(() => {
     const generateSrc = () => {
-      const surahThreeDigit = formatNumber(dataAudio.noSurah)
-      const verseThreeDigit = formatNumber(dataAudio.noAyat)
+      const surahThreeDigit = formatNumber(surah)
+      const verseThreeDigit = formatNumber(ayat)
       const BASE_URL = 'https://everyayah.com/data'
       const reciter = 'Alafasy_128kbps'
 
@@ -31,12 +32,18 @@ const SurahAudioPlayer = () => {
       setSrc(src)
     }
     generateSrc()
-  }, [dataAudio])
+  }, [surah, ayat])
 
   return (
-    <div className="fixed bottom-0 w-full md:w-[480px] flex self-center z-[100]">
-      <AudioPlayer autoPlay src={src} />
-    </div>
+    <>
+      {open ? (
+        <MaxWidthWrapper className="flex flex-col min-h-[100px] justify-between">
+          <div className="fixed bottom-0 w-full md:w-[480px] flex self-center z-[100]">
+            <AudioPlayer autoPlay src={src} />
+          </div>
+        </MaxWidthWrapper>
+      ) : null}
+    </>
   )
 }
 

@@ -1,12 +1,12 @@
 'use client'
 
 // import FrameAyat from '@/components/FrameAyat'
-import { createContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import MenuSheetAyat from './MenuSheetAyat'
 import { Button } from './ui/button'
-import { PlayIcon } from 'lucide-react'
+import { Pause, PlayIcon } from 'lucide-react'
+import { AudioContext } from '@/context/audioContext'
 
-export const AudioContext = createContext({ noSurah: '1', noAyat: '1' })
 interface Props {
   arabic: string
   noAyat: number
@@ -18,70 +18,76 @@ interface Props {
 
 const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate, reverse }: Props) => {
   const [show, setShow] = useState<boolean>(false)
-  const [dataAudio, setDataAudio] = useState({ noSurah, noAyat: '1' })
+  const { surah, setSurah, ayat, setAyat, setOpen } = useContext(AudioContext)
   const content = `${arabic}\n\n${translate} (QS. ${nameSurah}: ${noAyat})`
 
   const playAudio = (surahId: string, verseId: number) => {
-    const data = { noSurah: surahId, noAyat: verseId.toString() }
-    setDataAudio(data)
+    const isSame = noSurah === surah && noAyat.toString() === ayat
+    let surahIdTemp = surahId
+    let verseIdTemp = verseId.toString()
+    if (isSame) {
+      surahIdTemp = ''
+      verseIdTemp = ''
+    }
+    setSurah(surahIdTemp)
+    setAyat(verseIdTemp)
+    setOpen(isSame ? false : true)
   }
-  useEffect(() => {
-    console.log('DataAudio terbaru:', dataAudio)
-  }, [dataAudio])
 
   return (
-    <AudioContext.Provider value={dataAudio}>
-      <div className={`flex flex-col justify-between border-b ${show && 'bg-[#e8efe9]'}`}>
-        <div className="flex items-center">
-          <MenuSheetAyat item={{ content, arabic, noSurah, noAyat, nameSurah, translate }} />
-          <div>
-            <Button variant="outline" size="icon" onClick={() => playAudio(noSurah, noAyat)}>
+    <div className={`flex flex-col justify-between border-b ${show && 'bg-[#e8efe9]'}`}>
+      <div className="flex items-center">
+        <MenuSheetAyat item={{ content, arabic, noSurah, noAyat, nameSurah, translate }} />
+        <div>
+          <Button variant="outline" size="icon" onClick={() => playAudio(noSurah, noAyat)}>
+            {noSurah === surah && noAyat.toString() === ayat ? (
+              <Pause className="w-4 h-4" />
+            ) : (
               <PlayIcon className="w-4 h-4" />
-              {noSurah} {noAyat}
-            </Button>
-          </div>
-          <div
-            onClick={() => setShow(!show)}
-            className={`flex flex-col pr-4 py-5 border-gray-300 cursor-pointer relative w-full ${
-              reverse ? 'items-start pl-4' : 'items-end'
-            }`}
-          >
-            {!reverse ? (
-              <p className="text-right font-arabic text-2xl text-[#2F6742]">
-                {arabic}
-                <span className="font-bold text-3xl pt-[4px] mr-2">
-                  ۝
-                  {noAyat.toLocaleString('ar-u-nu-arab', {
-                    useGrouping: false,
-                  })}
-                </span>
-              </p>
-            ) : (
-              <p className="text-[#2F6742]">
-                {translate} <b>({noAyat})</b>
-              </p>
             )}
-          </div>
+          </Button>
         </div>
-        {show && (
-          <>
-            {reverse ? (
-              <p className="text-right font-arabic text-2xl mx-5 pb-4">
-                {arabic}
-                <span className="font-bold text-3xl pt-[4px] mr-2">
-                  ۝
-                  {noAyat.toLocaleString('ar-u-nu-arab', {
-                    useGrouping: false,
-                  })}
-                </span>
-              </p>
-            ) : (
-              <p className="px-4 pb-4">{translate}</p>
-            )}
-          </>
-        )}
+        <div
+          onClick={() => setShow(!show)}
+          className={`flex flex-col pr-4 py-5 border-gray-300 cursor-pointer relative w-full ${
+            reverse ? 'items-start pl-4' : 'items-end'
+          }`}
+        >
+          {!reverse ? (
+            <p className="text-right font-arabic text-2xl text-[#2F6742]">
+              {arabic}
+              <span className="font-bold text-3xl pt-[4px] mr-2">
+                ۝
+                {noAyat.toLocaleString('ar-u-nu-arab', {
+                  useGrouping: false,
+                })}
+              </span>
+            </p>
+          ) : (
+            <p className="text-[#2F6742]">
+              {translate} <b>({noAyat})</b>
+            </p>
+          )}
+        </div>
       </div>
-    </AudioContext.Provider>
+      {show && (
+        <>
+          {reverse ? (
+            <p className="text-right font-arabic text-2xl mx-5 pb-4">
+              {arabic}
+              <span className="font-bold text-3xl pt-[4px] mr-2">
+                ۝
+                {noAyat.toLocaleString('ar-u-nu-arab', {
+                  useGrouping: false,
+                })}
+              </span>
+            </p>
+          ) : (
+            <p className="px-4 pb-4">{translate}</p>
+          )}
+        </>
+      )}
+    </div>
   )
 }
 
