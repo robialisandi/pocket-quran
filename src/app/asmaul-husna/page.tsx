@@ -17,9 +17,7 @@ export default function AsmaulHusnaPage() {
               <span>{item.translation_id}</span>
             </div>
           </div>
-          <span className="font-arabic text-2xl text-[#2F6742]">
-            {item.arabic}
-          </span>
+          <span className="font-arabic text-2xl text-[#2F6742]">{item.arabic}</span>
         </div>
       ))}
     </div>

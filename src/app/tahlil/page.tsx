@@ -19,16 +19,9 @@ export default function TahlilPage() {
           <TabsContent value="tahlil">
             <div className="px-4 bg-[#e8efe9] mt-3 rounded-2xl">
               {tahlil.data.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col justify-center gap-4 py-4 border-b border-b-gray-300"
-                >
-                  <span className="font-bold font-arabic text-lg">
-                    {item.title}
-                  </span>
-                  <small className="text-2xl font-arabic text-right text-[#2F6742]">
-                    {item.arabic}
-                  </small>
+                <div key={index} className="flex flex-col justify-center gap-4 py-4 border-b border-b-gray-300">
+                  <span className="font-bold font-arabic text-lg">{item.title}</span>
+                  <small className="text-2xl font-arabic text-right text-[#2F6742]">{item.arabic}</small>
                   <span>{item.translation}</span>
                 </div>
               ))}

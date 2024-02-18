@@ -3,14 +3,7 @@ import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid'
 import { useRef, useState } from 'react'
 import html2canvas from 'html2canvas'
 import Link from 'next/link'
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import Poster from './Poster'
 import { Button } from '@/components/ui/button'
 
@@ -54,8 +47,7 @@ const MenuSheetAyat = ({ item }: Props) => {
           const footers = element.getElementsByClassName('footer')
 
           if (heading) heading.style.marginTop = isSquare ? '40px' : '160px'
-          if (footers)
-            footers[0].classList.add(isSquare ? 'mb-[50px]' : 'mb-[150px]')
+          if (footers) footers[0].classList.add(isSquare ? 'mb-[50px]' : 'mb-[150px]')
 
           element.style.display = 'block'
           element.style.height = isSquare ? '1080px' : '1920px'
@@ -88,37 +80,18 @@ const MenuSheetAyat = ({ item }: Props) => {
             </SheetTitle>
           </SheetHeader>
           <div className="flex justify-start mt-10">
-            <Link
-              href={`/surah/${item.noSurah}/${item.noAyat}`}
-              className="w-full px-2 py-1.5 flex items-center"
-            >
+            <Link href={`/surah/${item.noSurah}/${item.noAyat}`} className="w-full px-2 py-1.5 flex items-center">
               <ChevronDoubleRightIcon className="w-5 h-5 mr-1" />
               Tafsir
             </Link>
           </div>
           <div className="flex gap-3">
-            <Button
-              onClick={() => prepareURL()}
-              className="w-full mt-10"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <ImageDown className="mr-2 h-4 w-4" />
-              )}
+            <Button onClick={() => prepareURL()} className="w-full mt-10" disabled={isLoading}>
+              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ImageDown className="mr-2 h-4 w-4" />}
               Portrait Poster
             </Button>
-            <Button
-              onClick={() => prepareURL(true)}
-              className="w-full mt-10"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <ImageDown className="mr-2 h-4 w-4" />
-              )}
+            <Button onClick={() => prepareURL(true)} className="w-full mt-10" disabled={isLoading}>
+              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ImageDown className="mr-2 h-4 w-4" />}
               Square Poster
             </Button>
           </div>

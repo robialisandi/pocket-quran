@@ -14,12 +14,8 @@ export default function SurahDetailPage({ params }: Props) {
   const [reverse, setReverse] = useState(false)
 
   const { surah } = params
-  const surahData = require(`../../../data/surah-data/${surah}.ts`).default[
-    surah
-  ]
-  const surahInfo: SurahInfoPage = require(
-    `../../../data/surah-info/${surah}.ts`,
-  ).default
+  const surahData = require(`../../../data/surah-data/${surah}.ts`).default[surah]
+  const surahInfo: SurahInfoPage = require(`../../../data/surah-info/${surah}.ts`).default
 
   const handleReverseChange = (newReverse: boolean) => setReverse(newReverse)
 

@@ -14,9 +14,7 @@ export default function WiridPage() {
           key={index}
         >
           <span className="font-bold text-2xl">{item.id}x</span>
-          <span className="font-arabic text-2xl text-right text-[#2F6742]">
-            {item.arabic}
-          </span>
+          <span className="font-arabic text-2xl text-right text-[#2F6742]">{item.arabic}</span>
         </div>
       ))}
     </div>

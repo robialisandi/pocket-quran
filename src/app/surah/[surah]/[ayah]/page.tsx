@@ -4,10 +4,7 @@ interface Props {
   params: { surah: string; ayah: string }
 }
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const { surah, ayah } = params
   const resData = await import(`../../../../data/surah-data/${surah}.ts`)
   const surahData = await resData.default[surah]
@@ -55,14 +52,10 @@ export default async function Page({ params }: Props) {
       <div className="bg-[#c8e0d5] p-5 rounded-none sm:rounded-3xl">
         <div className="flex justify-between mb-2">
           <p className="font-bold">Tafsir:</p>
-          <p className="text-xs text-[#2F6742]">
-            {surahData.tafsir.id.kemenag.name}
-          </p>
+          <p className="text-xs text-[#2F6742]">{surahData.tafsir.id.kemenag.name}</p>
         </div>
         {surahData.tafsir.id.kemenag.text[ayah]}
-        <p className="mt-5 text-xs text-[#2F6742]">
-          Source: {surahData.tafsir.id.kemenag.source}
-        </p>
+        <p className="mt-5 text-xs text-[#2F6742]">Source: {surahData.tafsir.id.kemenag.source}</p>
       </div>
       <div className="flex-1"></div>
     </>
