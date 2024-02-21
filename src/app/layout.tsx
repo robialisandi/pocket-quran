@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: 'Ńgäâåjį | Quran Online',
   description: 'Baca Al-Qur`an dari browser | Ngaaaji',
   generator: 'Next.js',
+  manifest: '/manifest.json',
   keywords: ['ngaji', 'Al-Quran', 'quran', 'pwa', 'ngaaaji'],
   authors: [{ name: 'Robi Alisandi' }],
   viewport: 'minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover',

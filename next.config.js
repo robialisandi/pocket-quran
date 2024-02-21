@@ -12,6 +12,7 @@ const dateRev = new Date().toLocaleDateString('en-US', {
 
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
   publicRuntimeConfig: {
     version: `${gitRev}-${dateRev}`,
   }
