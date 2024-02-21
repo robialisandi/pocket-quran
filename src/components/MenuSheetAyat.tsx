@@ -1,12 +1,5 @@
 import { ImageDown, Loader2, MoreVertical } from 'lucide-react'
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from './ui/sheet'
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet'
 import {
   TelegramIcon,
   TelegramShareButton,
@@ -16,11 +9,12 @@ import {
   WhatsappShareButton,
 } from 'next-share'
 import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid'
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { Button } from './ui/button'
 import html2canvas from 'html2canvas'
 import Poster from './Poster'
 import Link from 'next/link'
+import { AudioContext } from '@/context/audioContext'
 
 interface Props {
   item: {
@@ -44,6 +38,7 @@ const options = {
 
 const MenuSheetAyat = ({ item }: Props) => {
   const [isLoading, setLoading] = useState(false)
+  const { surah: isPlaying } = useContext(AudioContext)
 
   const URL = `https://ngaaaji.vercel.app/surah/${item.noSurah}/${item.noAyat}`
 
@@ -64,8 +59,7 @@ const MenuSheetAyat = ({ item }: Props) => {
           const footers = element.getElementsByClassName('footer')
 
           if (heading) heading.style.marginTop = isSquare ? '40px' : '160px'
-          if (footers)
-            footers[0].classList.add(isSquare ? 'mb-[50px]' : 'mb-[150px]')
+          if (footers) footers[0].classList.add(isSquare ? 'mb-[50px]' : 'mb-[150px]')
 
           element.style.display = 'block'
           element.style.height = isSquare ? '1080px' : '1920px'
@@ -98,20 +92,15 @@ const MenuSheetAyat = ({ item }: Props) => {
         <SheetTrigger>
           <MoreVertical className="h-4 2-4" />
         </SheetTrigger>
-        <SheetContent side="bottom" className="md:w-[540px] mx-auto">
+        <SheetContent side="bottom" className={`md:w-[540px] mx-auto ${isPlaying && 'pb-[95px]'}`}>
           <SheetHeader>
             <SheetTitle>
               QS. {item.nameSurah}: {item.noAyat}
             </SheetTitle>
-            <SheetDescription className="line-clamp-4">
-              {item.translate}
-            </SheetDescription>
+            <SheetDescription className="line-clamp-4">{item.translate}</SheetDescription>
           </SheetHeader>
           <div className="flex justify-between mt-10">
-            <Link
-              href={`/surah/${item.noSurah}/${item.noAyat}`}
-              className="w-full px-2 py-1.5 flex items-center"
-            >
+            <Link href={`/surah/${item.noSurah}/${item.noAyat}`} className="w-full px-2 py-1.5 flex items-center">
               <ChevronDoubleRightIcon className="w-5 h-5 mr-1" />
               Tafsir
             </Link>
@@ -122,11 +111,7 @@ const MenuSheetAyat = ({ item }: Props) => {
                   <WhatsappIcon size={38} round />
                 </div>
               </WhatsappShareButton>
-              <TwitterShareButton
-                url={URL}
-                title={item.content}
-                hashtags={['ngajiyuk', 'ngaaaji']}
-              >
+              <TwitterShareButton url={URL} title={item.content} hashtags={['ngajiyuk', 'ngaaaji']}>
                 <div className="flex justify-center items-center">
                   <TwitterIcon size={38} round />
                 </div>
@@ -139,28 +124,12 @@ const MenuSheetAyat = ({ item }: Props) => {
             </div>
           </div>
           <div className="flex gap-3">
-            <Button
-              onClick={() => prepareURL()}
-              className="w-full mt-10"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <ImageDown className="mr-2 h-4 w-4" />
-              )}
+            <Button onClick={() => prepareURL()} className="w-full mt-10" disabled={isLoading}>
+              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ImageDown className="mr-2 h-4 w-4" />}
               Portrait Poster
             </Button>
-            <Button
-              onClick={() => prepareURL(true)}
-              className="w-full mt-10"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <ImageDown className="mr-2 h-4 w-4" />
-              )}
+            <Button onClick={() => prepareURL(true)} className="w-full mt-10" disabled={isLoading}>
+              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ImageDown className="mr-2 h-4 w-4" />}
               Square Poster
             </Button>
           </div>

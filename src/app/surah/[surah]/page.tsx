@@ -5,7 +5,7 @@ import Pagination from '@/components/Pagination'
 import SwitchReverse from '@/components/SwitchReverse'
 import { SurahInfoPage } from '@/data/surah-info'
 import { NextPage } from 'next'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 interface Props {
   params: { surah: string }
@@ -15,6 +15,7 @@ interface Props {
 const SurahDetailPage: NextPage<Props> = ({ params, onlySurah = false }: Props) => {
   const [reverse, setReverse] = useState(false)
 
+  const playingRef = useRef(null)
   const { surah } = params
   const surahData = require(`../../../data/surah-data/${surah}.ts`).default[surah]
   const surahInfo: SurahInfoPage = require(`../../../data/surah-info/${surah}.ts`).default
@@ -48,6 +49,7 @@ const SurahDetailPage: NextPage<Props> = ({ params, onlySurah = false }: Props) 
               nameSurah={surahData.name_latin}
               reverse={reverse}
               key={index}
+              playingRef={playingRef}
             />
           ))}
         {!onlySurah && <Pagination surahInfo={surahInfo} />}
