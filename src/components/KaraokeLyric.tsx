@@ -10,24 +10,26 @@ const KaraokeLyric: React.FC<KaraokeLyricProps> = ({ text, currentTime, duration
   const [coloredText, setColoredText] = useState<(string | JSX.Element)[]>([])
 
   useEffect(() => {
-    const words = text.split(' ')
-    const wordCount = words.length
-    const wordDuration = duration / wordCount
-    const currentWordIndex = Math.floor(currentTime / wordDuration)
+    if (text) {
+      const words = text.split(' ')
+      const wordCount = words.length
+      const wordDuration = duration / wordCount
+      const currentWordIndex = Math.floor(currentTime / wordDuration)
 
-    const newColoredWords = words.map((word, index) => {
-      if (index <= currentWordIndex) {
-        return (
-          <span key={index} className="text-sm text-center text-green-700">
-            {word}
-          </span>
-        )
-      } else {
-        return word
-      }
-    })
+      const newColoredWords = words.map((word, index) => {
+        if (index <= currentWordIndex) {
+          return (
+            <span key={index} className="text-sm text-center text-green-700">
+              {word}
+            </span>
+          )
+        } else {
+          return word
+        }
+      })
 
-    setColoredText(newColoredWords)
+      setColoredText(newColoredWords)
+    }
   }, [text, currentTime, duration])
 
   return (
