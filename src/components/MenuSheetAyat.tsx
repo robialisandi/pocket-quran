@@ -92,7 +92,7 @@ const MenuSheetAyat = ({ item }: Props) => {
         <SheetTrigger>
           <MoreVertical className="h-4 2-4" />
         </SheetTrigger>
-        <SheetContent side="bottom" className={`md:w-[540px] mx-auto ${isPlaying && 'pb-[95px]'}`}>
+        <SheetContent side="bottom" className={`md:w-[540px] mx-auto ${isPlaying && 'pb-[110px]'}`}>
           <SheetHeader>
             <SheetTitle>
               QS. {item.nameSurah}: {item.noAyat}

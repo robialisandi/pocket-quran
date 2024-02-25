@@ -7,7 +7,7 @@ interface Wrapper {
   children: React.ReactNode
 }
 export default function AudioProvider({ children }: Wrapper) {
-  const [surah, setSurah] = useState<string>('')
+  const [surah, setSurah] = useState<string>('1')
   const [ayat, setAyat] = useState<string>('')
   const [open, setOpen] = useState<boolean>(false)
   return (
