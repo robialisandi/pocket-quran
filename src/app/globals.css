@@ -144,3 +144,17 @@ body {
 .rhap_progress-bar-show-download {
   background-color: #eef5ef !important;
 }
+.rhap_progress-container {
+  position: absolute;
+  width: 100%;
+  left: -15px;
+  top: -9px;
+}
+.rhap_controls-section,
+.rhap_header {
+  margin: 0 !important;
+}
+.rhap_time {
+  visibility: hidden;
+  font-size: 12px !important;
+}

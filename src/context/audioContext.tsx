@@ -10,13 +10,9 @@ interface AudioContextType {
 }
 export const AudioContext = createContext<AudioContextType>({
   surah: '1',
-  setSurah: (surah) => {
-    return surah
-  },
+  setSurah: () => {},
   ayat: '1',
-  setAyat: (ayat) => {
-    return ayat
-  },
+  setAyat: () => {},
   open: false,
   setOpen: () => {},
 })
