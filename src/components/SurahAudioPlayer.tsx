@@ -111,13 +111,16 @@ const SurahAudioPlayer = () => {
     <>
       {open ? (
         <MaxWidthWrapper className="flex flex-col min-h-[100px] justify-between">
-          <div className="bg-white fixed bottom-0 w-full md:w-[480px] flex self-center z-[100]">
-            {translate && (
-              <div className="absolute bottom-[100px] z-10 bg-[#ffffffa3] max-w-[480px] p-3 w-full backdrop-blur-sm shadow-[0_-5px_15px_2px_rgba(0,0,0,0.07)]">
-                <span className="text-sm text-center flex">{surahData?.translations.id.text[ayat]}</span>
-              </div>
-            )}
+          <div className="bg-white fixed bottom-0 w-full md:w-[480px] flex self-center z-[99]">
+            <div
+              className={`transition-all duration-800 ${
+                translate ? 'opacity-100 translate-y-0 visible' : 'invisible opacity-0 translate-y-full'
+              } absolute bottom-[100px] z-10 bg-[#ffffffa3] max-w-[480px] p-3 w-full backdrop-blur-sm shadow-[0_-5px_15px_2px_rgba(0,0,0,0.07)]`}
+            >
+              <span className="text-sm text-center flex">{surahData?.translations.id.text[ayat]}</span>
+            </div>
             <AudioPlayer
+              className="z-[1000]"
               autoPlay
               src={src}
               onEnded={() => nextPlay()}
