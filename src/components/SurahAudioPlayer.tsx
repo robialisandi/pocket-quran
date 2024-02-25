@@ -14,13 +14,12 @@ import {
   Volume2,
   VolumeX,
   XCircleIcon,
-  XIcon,
 } from 'lucide-react'
 import { SurahInfoPage } from '@/data/surah-info'
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
 import MaxWidthWrapper from './MaxWidthWrapper'
 import 'react-h5-audio-player/lib/styles.css'
-import { Button } from './ui/button'
+import KaraokeLyric from '@/components/KaraokeLyric'
 
 const formatNumber = (numberText: string): string => {
   const numParam = parseInt(numberText, 10)
@@ -69,6 +68,8 @@ const SurahAudioPlayer = () => {
   const [translate, setTranslate] = useState<boolean>(false)
   const [surahInfo, setSurahInfo] = useState<SurahInfoPage | null>(null)
   const [surahData, setSurahData] = useState<SurahDataType | null>(null)
+  const [duration, setDuration] = useState<number>(0)
+  const [timestamp, setTimestamp] = useState<number>(0)
 
   useEffect(() => {
     const generateSrc = () => {
@@ -117,7 +118,13 @@ const SurahAudioPlayer = () => {
                 translate ? 'opacity-100 translate-y-0 visible' : 'invisible opacity-0 translate-y-full'
               } absolute bottom-[100px] z-10 bg-[#ffffffa3] max-w-[480px] p-3 w-full backdrop-blur-sm shadow-[0_-5px_15px_2px_rgba(0,0,0,0.07)]`}
             >
-              <span className="text-sm text-center flex">{surahData?.translations.id.text[ayat]}</span>
+              {surahData?.translations?.id?.text && (
+                <KaraokeLyric
+                  text={surahData?.translations.id.text[ayat]}
+                  currentTime={timestamp}
+                  duration={duration}
+                />
+              )}
             </div>
             <AudioPlayer
               className="z-[1000]"
@@ -125,6 +132,8 @@ const SurahAudioPlayer = () => {
               src={src}
               onEnded={() => nextPlay()}
               onError={() => onClose()}
+              onListen={(e) => setTimestamp((e.currentTarget as HTMLAudioElement).currentTime)}
+              onLoadedData={(e) => setDuration((e.currentTarget as HTMLAudioElement).duration)}
               customIcons={{
                 play: <PlayCircleIcon className="h-6 w-6 m-auto" />,
                 pause: <PauseIcon className="h-5 w-5 m-auto" />,
