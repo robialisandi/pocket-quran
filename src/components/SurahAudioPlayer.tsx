@@ -5,6 +5,7 @@ import { AudioContext } from '@/context/audioContext'
 import {
   FastForwardIcon,
   FileAudio,
+  GalleryThumbnails,
   PauseIcon,
   PlayCircleIcon,
   RefreshCcw,
@@ -12,11 +13,14 @@ import {
   RewindIcon,
   Volume2,
   VolumeX,
+  XCircleIcon,
+  XIcon,
 } from 'lucide-react'
 import { SurahInfoPage } from '@/data/surah-info'
-import AudioPlayer from 'react-h5-audio-player'
+import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
 import MaxWidthWrapper from './MaxWidthWrapper'
 import 'react-h5-audio-player/lib/styles.css'
+import { Button } from './ui/button'
 
 const formatNumber = (numberText: string): string => {
   const numParam = parseInt(numberText, 10)
@@ -28,11 +32,43 @@ const formatNumber = (numberText: string): string => {
     return `${numberText}`
   }
 }
+interface AyahText {
+  [ayahNumber: string]: string
+}
+
+interface TranslationText {
+  name: string
+  text: AyahText
+}
+
+interface TafsirText {
+  name: string
+  source: string
+  text: AyahText
+}
+
+interface SurahDataType {
+  number: string
+  name: string
+  name_latin: string
+  number_of_ayah: string
+  text: AyahText
+  translations: {
+    id: TranslationText
+  }
+  tafsir: {
+    id: {
+      kemenag: TafsirText
+    }
+  }
+}
 
 const SurahAudioPlayer = () => {
   const { surah, setSurah, ayat, setAyat, open, setOpen } = useContext(AudioContext)
   const [src, setSrc] = useState<string>('')
+  const [translate, setTranslate] = useState<boolean>(false)
   const [surahInfo, setSurahInfo] = useState<SurahInfoPage | null>(null)
+  const [surahData, setSurahData] = useState<SurahDataType | null>(null)
 
   useEffect(() => {
     const generateSrc = () => {
@@ -46,9 +82,12 @@ const SurahAudioPlayer = () => {
     }
     if (surah !== '') {
       const surahInfo: SurahInfoPage = require(`../data/surah-info/${surah}.ts`).default
+      const surahData: SurahDataType = require(`../data/surah-data/${surah}.ts`).default[surah]
       setSurahInfo(surahInfo)
+      setSurahData(surahData)
     } else {
       setSurahInfo(null)
+      setSurahData(null)
     }
     generateSrc()
   }, [surah, ayat])
@@ -58,10 +97,14 @@ const SurahAudioPlayer = () => {
     setAyat(nextAyat.toString())
   }
 
-  const onError = () => {
+  const onClose = () => {
     setSurah('')
     setAyat('')
     setOpen(false)
+  }
+
+  const showTranslate = () => {
+    setTranslate(!translate)
   }
 
   return (
@@ -69,11 +112,16 @@ const SurahAudioPlayer = () => {
       {open ? (
         <MaxWidthWrapper className="flex flex-col min-h-[100px] justify-between">
           <div className="bg-white fixed bottom-0 w-full md:w-[480px] flex self-center z-[100]">
+            {translate && (
+              <div className="absolute bottom-[100px] z-10 bg-[#ffffffa3] max-w-[480px] p-3 w-full backdrop-blur-sm shadow-[0_-5px_15px_2px_rgba(0,0,0,0.07)]">
+                <span className="text-sm text-center flex">{surahData?.translations.id.text[ayat]}</span>
+              </div>
+            )}
             <AudioPlayer
               autoPlay
               src={src}
               onEnded={() => nextPlay()}
-              onError={() => onError()}
+              onError={() => onClose()}
               customIcons={{
                 play: <PlayCircleIcon className="h-6 w-6 m-auto" />,
                 pause: <PauseIcon className="h-5 w-5 m-auto" />,
@@ -83,11 +131,19 @@ const SurahAudioPlayer = () => {
                   </div>
                 ),
                 forward: <FastForwardIcon className="h-5 w-5" />,
-                loop: <RefreshCcw className="h-5 w-5" />,
+                loop: <RefreshCcw className="h-5 w-5 text-green-600" />,
                 loopOff: <RefreshCwOff className="h-5 w-5" />,
                 volume: <Volume2 className="h-5 w-5" />,
                 volumeMute: <VolumeX className="h-5 w-5" />,
               }}
+              customAdditionalControls={[
+                RHAP_UI.LOOP,
+                <GalleryThumbnails
+                  key="1"
+                  className={`h-5 w-5 cursor-pointer ${translate ? 'text-green-600' : 'text-gray-300'}`}
+                  onClick={() => showTranslate()}
+                />,
+              ]}
               header={
                 <div className="flex justify-between pt-2">
                   <div className="flex items-center">
@@ -96,7 +152,13 @@ const SurahAudioPlayer = () => {
                       QS. {surahInfo?.current.latin} {surah} : {ayat}
                     </small>
                   </div>
-                  <small className="text-gray-500 text-[13px]">{surahInfo?.current.translation}</small>
+                  <div className="flex items-center">
+                    <small className="text-gray-400 text-[13px]">• {surahInfo?.current.translation}</small>
+                    <XCircleIcon
+                      className="absolute z-20 bg-white rounded-lg top-[-20px] right-[10px] w-4 h-4 text-gray-400 hover:text-red-500 cursor-pointer"
+                      onClick={() => onClose()}
+                    />
+                  </div>
                 </div>
               }
             />
