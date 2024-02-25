@@ -1,7 +1,7 @@
 'use client'
 
 // import FrameAyat from '@/components/FrameAyat'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import MenuSheetAyat from './MenuSheetAyat'
 import { Button } from './ui/button'
 import { PlayIcon, VolumeX } from 'lucide-react'
@@ -39,7 +39,7 @@ const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate, reverse, playingR
     if (playing && playingRef.current) {
       playingRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
-  }, [playing])
+  }, [playing, playingRef])
 
   return (
     <div
