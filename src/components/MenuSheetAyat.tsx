@@ -123,16 +123,18 @@ const MenuSheetAyat = ({ item }: Props) => {
               </TelegramShareButton>
             </div>
           </div>
-          <div className="flex gap-3">
-            <Button onClick={() => prepareURL()} className="w-full mt-10" disabled={isLoading}>
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ImageDown className="mr-2 h-4 w-4" />}
-              Portrait Poster
-            </Button>
-            <Button onClick={() => prepareURL(true)} className="w-full mt-10" disabled={isLoading}>
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ImageDown className="mr-2 h-4 w-4" />}
-              Square Poster
-            </Button>
-          </div>
+          {!isPlaying && (
+            <div className="flex gap-3">
+              <Button onClick={() => prepareURL()} className="w-full mt-10" disabled={isLoading}>
+                {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ImageDown className="mr-2 h-4 w-4" />}
+                Portrait Poster
+              </Button>
+              <Button onClick={() => prepareURL(true)} className="w-full mt-10" disabled={isLoading}>
+                {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ImageDown className="mr-2 h-4 w-4" />}
+                Square Poster
+              </Button>
+            </div>
+          )}
           <Poster item={item} ref={cardRef} />
         </SheetContent>
       </Sheet>
