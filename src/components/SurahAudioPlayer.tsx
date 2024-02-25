@@ -18,7 +18,7 @@ const formatNumber = (numberText: string): string => {
 }
 
 const SurahAudioPlayer = () => {
-  const { surah, ayat, setAyat, open } = useContext(AudioContext)
+  const { surah, setSurah, ayat, setAyat, open, setOpen } = useContext(AudioContext)
   const [src, setSrc] = useState<string>('')
 
   useEffect(() => {
@@ -39,12 +39,18 @@ const SurahAudioPlayer = () => {
     setAyat(nextAyat.toString())
   }
 
+  const onError = () => {
+    setSurah('')
+    setAyat('')
+    setOpen(false)
+  }
+
   return (
     <>
       {open ? (
         <MaxWidthWrapper className="flex flex-col min-h-[100px] justify-between">
           <div className="bg-white fixed bottom-0 w-full md:w-[480px] flex self-center z-[100]">
-            <AudioPlayer autoPlay src={src} onEnded={() => nextPlay()} />
+            <AudioPlayer autoPlay src={src} onEnded={() => nextPlay()} onError={() => onError()} />
           </div>
         </MaxWidthWrapper>
       ) : null}
