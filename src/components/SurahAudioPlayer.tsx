@@ -32,8 +32,7 @@ const formatNumber = (numberText: string): string => {
 const SurahAudioPlayer = () => {
   const { surah, setSurah, ayat, setAyat, open, setOpen } = useContext(AudioContext)
   const [src, setSrc] = useState<string>('')
-
-  const surahInfo: SurahInfoPage = require(`../data/surah-info/${surah}.ts`).default
+  const [surahInfo, setSurahInfo] = useState<SurahInfoPage | null>(null)
 
   useEffect(() => {
     const generateSrc = () => {
@@ -44,6 +43,12 @@ const SurahAudioPlayer = () => {
 
       const src = `${BASE_URL}/${reciter}/${surahThreeDigit}${verseThreeDigit}.mp3`
       setSrc(src)
+    }
+    if (surah !== '') {
+      const surahInfo: SurahInfoPage = require(`../data/surah-info/${surah}.ts`).default
+      setSurahInfo(surahInfo)
+    } else {
+      setSurahInfo(null)
     }
     generateSrc()
   }, [surah, ayat])
@@ -88,10 +93,10 @@ const SurahAudioPlayer = () => {
                   <div className="flex items-center">
                     <FileAudio className="h-4 w-4 mr-2 text-green-700" />
                     <small className="text-green-800 text-[13px]">
-                      QS. {surahInfo.current.latin} {surah} : {ayat}
+                      QS. {surahInfo?.current.latin} {surah} : {ayat}
                     </small>
                   </div>
-                  <small className="text-gray-500 text-[13px]">{surahInfo.current.translation}</small>
+                  <small className="text-gray-500 text-[13px]">{surahInfo?.current.translation}</small>
                 </div>
               }
             />
