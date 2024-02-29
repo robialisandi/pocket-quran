@@ -109,6 +109,9 @@ body {
   font-family: 'lpmq', 'Traditional Arabic', Arial, sans-serif;
   line-height: 2;
 }
+.frame-ayah-color {
+  background-image: url('/frame-ayah-bg.svg') !important;
+}
 .frame-ayah {
   background-image: url('/frame-ayah-bg-1.svg');
   width: 34px;
