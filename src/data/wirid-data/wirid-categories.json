@@ -1,0 +1,32 @@
+[
+    {
+        "category": "Wirid Harian",
+        "total": "7",
+        "url": "wirid/wirid-harian"
+    },
+    {
+        "category": "Shalawat",
+        "total": "33",
+        "url": "wirid/shalawat"
+    },
+    {
+        "category": "Ratib",
+        "total": "5",
+        "url": "wirid/ratib"
+    },
+    {
+        "category": "Hizib",
+        "total": "8",
+        "url": "wirid/hizib"
+    },
+    {
+        "category": "Dalailul Khairat",
+        "total": "12",
+        "url": "wirid/dalailul-khairat"
+    },
+    {
+        "category": "Manaqib Syekh Abdul Qadir",
+        "total": "9",
+        "url": "wirid/manaqib-syekh-abdul-qadir"
+    }
+]
