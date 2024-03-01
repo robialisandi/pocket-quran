@@ -9,9 +9,9 @@ interface AudioContextType {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 export const AudioContext = createContext<AudioContextType>({
-  surah: '1',
+  surah: '',
   setSurah: () => {},
-  ayat: '1',
+  ayat: '',
   setAyat: () => {},
   open: false,
   setOpen: () => {},
