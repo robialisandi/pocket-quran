@@ -1,11 +1,11 @@
 'use client'
 
 import FrameAyat from '@/components/FrameAyat'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import MenuSheetAyat from './MenuSheetAyat'
 import { Button } from './ui/button'
-import { PlayIcon, VolumeX } from 'lucide-react'
-import { AudioContext } from '@/context/audioContext'
+import { BookmarkIcon, PlayIcon, VolumeX } from 'lucide-react'
+import { useAppContext } from '@/context/state'
 
 interface Props {
   arabic: string
@@ -18,22 +18,25 @@ interface Props {
 }
 
 const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate, reverse, playingRef }: Props) => {
+  const state = useAppContext()
   const [show, setShow] = useState<boolean>(false)
-  const { surah, setSurah, ayat, setAyat, setOpen } = useContext(AudioContext)
+  const { audio, setAudio } = state.audioContext
   const content = `${arabic}\n\n${translate} (QS. ${nameSurah}: ${noAyat})`
-  const playing = noSurah === surah && noAyat.toString() === ayat
+  const playing = noSurah === audio.surah && noAyat.toString() === audio.ayat
 
   const playAudio = (surahId: string, verseId: number) => {
-    const isSame = noSurah === surah && noAyat.toString() === ayat
+    const isSame = noSurah === audio.surah && noAyat.toString() === audio.ayat
     let surahIdTemp = surahId
     let verseIdTemp = verseId.toString()
     if (isSame) {
       surahIdTemp = ''
       verseIdTemp = ''
     }
-    setSurah(surahIdTemp)
-    setAyat(verseIdTemp)
-    setOpen(isSame ? false : true)
+    setAudio({
+      surah: surahIdTemp,
+      ayat: verseIdTemp,
+      open: isSame ? false : true,
+    })
   }
   useEffect(() => {
     if (playing && playingRef.current) {
@@ -47,17 +50,28 @@ const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate, reverse, playingR
       ref={playing ? playingRef : null}
       className={`flex flex-col justify-between border-b ${show || playing ? 'bg-[#e8efe9]' : ''}`}
     >
-      <div className="flex items-center">
-        <div className="flex flex-col justify-center text-center items-center gap-4 p-2">
+      <div className="flex justify-end">
+        <div className="flex flex-col justify-end gap-4 p-2">
           <MenuSheetAyat item={{ content, arabic, noSurah, noAyat, nameSurah, translate }} />
-          <div className="ml-1">
-            <Button variant="outline" size="icon" onClick={() => playAudio(noSurah, noAyat)}>
-              {playing ? (
-                <VolumeX className="w-4 h-4 text-green-700" />
-              ) : (
-                <PlayIcon className="w-4 h-4 text-green-700" />
-              )}
-            </Button>
+          <div className="flex">
+            <div className="ml-1">
+              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => playAudio(noSurah, noAyat)}>
+                {playing ? (
+                  <VolumeX className="w-4 h-4 text-green-700" />
+                ) : (
+                  <PlayIcon className="w-4 h-4 text-green-700" />
+                )}
+              </Button>
+            </div>
+            <div className="ml-1">
+              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => playAudio(noSurah, noAyat)}>
+                {playing ? (
+                  <VolumeX className="w-4 h-4 text-green-700" />
+                ) : (
+                  <BookmarkIcon className="w-4 h-4 text-gray-400" />
+                )}
+              </Button>
+            </div>
           </div>
         </div>
         <div

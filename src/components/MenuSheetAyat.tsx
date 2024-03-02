@@ -9,12 +9,12 @@ import {
   WhatsappShareButton,
 } from 'next-share'
 import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid'
-import { useContext, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Button } from './ui/button'
 import html2canvas from 'html2canvas'
 import Poster from './Poster'
 import Link from 'next/link'
-import { AudioContext } from '@/context/audioContext'
+import { useAppContext } from '@/context/state'
 
 interface Props {
   item: {
@@ -38,7 +38,7 @@ const options = {
 
 const MenuSheetAyat = ({ item }: Props) => {
   const [isLoading, setLoading] = useState(false)
-  const { surah: isPlaying } = useContext(AudioContext)
+  const { surah: isPlaying } = useAppContext().audioContext.audio
 
   const URL = `https://ngaaaji.vercel.app/surah/${item.noSurah}/${item.noAyat}`
 

@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 import { cn } from '@/lib/utils'
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 import SurahAudioPlayer from '@/components/SurahAudioPlayer'
-import AudioProvider from './audio-provider'
+import { AppWrapper } from '@/context/state'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,13 +29,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={cn(inter.className, 'min-h-screen')}>
         <Header />
-        <AudioProvider>
+        <AppWrapper>
           <MaxWidthWrapper className="flex flex-col min-h-screen justify-between">
             {children}
             <Footer />
           </MaxWidthWrapper>
           <SurahAudioPlayer />
-        </AudioProvider>
+        </AppWrapper>
       </body>
     </html>
   )
