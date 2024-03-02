@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import {
   FastForwardIcon,
   FileAudio,
@@ -14,57 +13,20 @@ import {
   VolumeX,
   XCircleIcon,
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { SurahInfoPage } from '@/data/surah-info'
-import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
-import MaxWidthWrapper from './MaxWidthWrapper'
-import 'react-h5-audio-player/lib/styles.css'
-import KaraokeLyric from '@/components/KaraokeLyric'
 import { useAppContext } from '@/context/state'
-
-const formatNumber = (numberText: string): string => {
-  const numParam = parseInt(numberText, 10)
-  if (numParam < 10) {
-    return `00${numberText}`
-  } else if (numParam < 100) {
-    return `0${numberText}`
-  } else {
-    return `${numberText}`
-  }
-}
-interface AyahText {
-  [ayahNumber: string]: string
-}
-
-interface TranslationText {
-  name: string
-  text: AyahText
-}
-
-interface TafsirText {
-  name: string
-  source: string
-  text: AyahText
-}
-
-interface SurahDataType {
-  number: string
-  name: string
-  name_latin: string
-  number_of_ayah: string
-  text: AyahText
-  translations: {
-    id: TranslationText
-  }
-  tafsir: {
-    id: {
-      kemenag: TafsirText
-    }
-  }
-}
+import { formatNumber } from '@/lib/utils'
+import { SurahDataType } from '@/@types/SurahData'
+import MaxWidthWrapper from './MaxWidthWrapper'
+import KaraokeLyric from '@/components/KaraokeLyric'
+import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
+import 'react-h5-audio-player/lib/styles.css'
 
 const SurahAudioPlayer = () => {
   const state = useAppContext()
   const { audio, setAudio } = state.audioContext
+
   const [src, setSrc] = useState<string>('')
   const [translate, setTranslate] = useState<boolean>(false)
   const [surahInfo, setSurahInfo] = useState<SurahInfoPage | null>(null)

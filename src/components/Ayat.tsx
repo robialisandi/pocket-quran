@@ -18,24 +18,17 @@ interface Props {
 }
 
 const Ayat = ({ arabic, noSurah, noAyat, nameSurah, translate, reverse, playingRef }: Props) => {
-  const state = useAppContext()
+  const { audio, setAudio } = useAppContext().audioContext
+
   const [show, setShow] = useState<boolean>(false)
-  const { audio, setAudio } = state.audioContext
   const content = `${arabic}\n\n${translate} (QS. ${nameSurah}: ${noAyat})`
   const playing = noSurah === audio.surah && noAyat.toString() === audio.ayat
 
   const playAudio = (surahId: string, verseId: number) => {
-    const isSame = noSurah === audio.surah && noAyat.toString() === audio.ayat
-    let surahIdTemp = surahId
-    let verseIdTemp = verseId.toString()
-    if (isSame) {
-      surahIdTemp = ''
-      verseIdTemp = ''
-    }
     setAudio({
-      surah: surahIdTemp,
-      ayat: verseIdTemp,
-      open: isSame ? false : true,
+      surah: playing ? '' : surahId,
+      ayat: playing ? '' : verseId.toString(),
+      open: playing ? false : true,
     })
   }
   useEffect(() => {
