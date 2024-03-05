@@ -1,4 +1,5 @@
 'use client'
+
 import CardSurah from '@/components/CardSurah'
 import IconBar from '@/components/IconBar'
 import SearchInput from '@/components/SearchInput'

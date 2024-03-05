@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 import SurahAudioPlayer from '@/components/SurahAudioPlayer'
 import { AppWrapper } from '@/context/state'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </MaxWidthWrapper>
           <SurahAudioPlayer />
         </AppWrapper>
+        <Toaster />
       </body>
     </html>
   )
