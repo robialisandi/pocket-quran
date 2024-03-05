@@ -7,7 +7,7 @@ const SkeletonBookmark = ({ count }: Props) => {
   return (
     <div className="grid grid-cols-2 gap-[6px] w-full">
       {Array.from({ length: count }, (_, index) => (
-        <Skeleton className="w-full h-14" key={index} />
+        <Skeleton className="w-full h-10" key={index} />
       ))}
     </div>
   )
