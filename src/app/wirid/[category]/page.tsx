@@ -6,7 +6,6 @@ interface Props {
   params: { category: string }
 }
 const Page: NextPage<Props> = ({ params }: Props) => {
-  console.log(params.category)
   const data: DoaType[] = require(`../../../data/wirid-data/${params.category}.ts`).default
 
   return (

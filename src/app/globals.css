@@ -105,6 +105,10 @@ body {
     0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 
+.bg-mesjid {
+    background-image: url('/bg-masjid.svg') !important;
+}
+
 .font-arabic {
   font-family: 'lpmq', 'Traditional Arabic', Arial, sans-serif;
   line-height: 2;

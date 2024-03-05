@@ -7,7 +7,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="text-center p-4 text-gray-400">
+    <footer className="text-center p-4 text-gray-400 z-10">
       <h6>-</h6>
       <small>
         Ngaaaji menggunakan sumber data Al-Qur'an dari{' '}

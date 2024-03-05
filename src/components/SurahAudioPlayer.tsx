@@ -1,7 +1,5 @@
 'use client'
 
-import { useContext, useEffect, useState } from 'react'
-import { AudioContext } from '@/context/audioContext'
 import {
   FastForwardIcon,
   FileAudio,
@@ -15,55 +13,20 @@ import {
   VolumeX,
   XCircleIcon,
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { SurahInfoPage } from '@/data/surah-info'
-import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
+import { useAppContext } from '@/context/state'
+import { formatNumber } from '@/lib/utils'
+import { SurahDataType } from '@/@types/SurahData'
 import MaxWidthWrapper from './MaxWidthWrapper'
-import 'react-h5-audio-player/lib/styles.css'
 import KaraokeLyric from '@/components/KaraokeLyric'
-
-const formatNumber = (numberText: string): string => {
-  const numParam = parseInt(numberText, 10)
-  if (numParam < 10) {
-    return `00${numberText}`
-  } else if (numParam < 100) {
-    return `0${numberText}`
-  } else {
-    return `${numberText}`
-  }
-}
-interface AyahText {
-  [ayahNumber: string]: string
-}
-
-interface TranslationText {
-  name: string
-  text: AyahText
-}
-
-interface TafsirText {
-  name: string
-  source: string
-  text: AyahText
-}
-
-interface SurahDataType {
-  number: string
-  name: string
-  name_latin: string
-  number_of_ayah: string
-  text: AyahText
-  translations: {
-    id: TranslationText
-  }
-  tafsir: {
-    id: {
-      kemenag: TafsirText
-    }
-  }
-}
+import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
+import 'react-h5-audio-player/lib/styles.css'
 
 const SurahAudioPlayer = () => {
-  const { surah, setSurah, ayat, setAyat, open, setOpen } = useContext(AudioContext)
+  const state = useAppContext()
+  const { audio, setAudio } = state.audioContext
+
   const [src, setSrc] = useState<string>('')
   const [translate, setTranslate] = useState<boolean>(false)
   const [surahInfo, setSurahInfo] = useState<SurahInfoPage | null>(null)
@@ -73,17 +36,17 @@ const SurahAudioPlayer = () => {
 
   useEffect(() => {
     const generateSrc = () => {
-      const surahThreeDigit = formatNumber(surah)
-      const verseThreeDigit = formatNumber(ayat)
+      const surahThreeDigit = formatNumber(audio.surah)
+      const verseThreeDigit = formatNumber(audio.ayat)
       const BASE_URL = 'https://everyayah.com/data'
       const reciter = 'Alafasy_128kbps'
 
       const src = `${BASE_URL}/${reciter}/${surahThreeDigit}${verseThreeDigit}.mp3`
       setSrc(src)
     }
-    if (surah !== '') {
-      const surahInfo: SurahInfoPage = require(`../data/surah-info/${surah}.ts`).default
-      const surahData: SurahDataType = require(`../data/surah-data/${surah}.ts`).default[surah]
+    if (audio.surah !== '') {
+      const surahInfo: SurahInfoPage = require(`../data/surah-info/${audio.surah}.ts`).default
+      const surahData: SurahDataType = require(`../data/surah-data/${audio.surah}.ts`).default[audio.surah]
       setSurahInfo(surahInfo)
       setSurahData(surahData)
     } else {
@@ -91,17 +54,23 @@ const SurahAudioPlayer = () => {
       setSurahData(null)
     }
     generateSrc()
-  }, [surah, ayat])
+  }, [audio])
 
   const nextPlay = () => {
-    const nextAyat = parseInt(ayat) + 1
-    setAyat(nextAyat.toString())
+    const nextAyat = parseInt(audio.ayat) + 1
+    setAudio({
+      surah: audio.surah,
+      ayat: nextAyat.toString(),
+      open: audio.open,
+    })
   }
 
   const onClose = () => {
-    setSurah('')
-    setAyat('')
-    setOpen(false)
+    setAudio({
+      surah: '',
+      ayat: '',
+      open: false,
+    })
   }
 
   const showTranslate = () => {
@@ -110,7 +79,7 @@ const SurahAudioPlayer = () => {
 
   return (
     <>
-      {open ? (
+      {audio.open ? (
         <MaxWidthWrapper className="flex flex-col min-h-[100px] justify-between">
           <div className="bg-white fixed bottom-0 w-full md:w-[480px] flex self-center z-[99]">
             <div
@@ -120,7 +89,7 @@ const SurahAudioPlayer = () => {
             >
               {surahData?.translations?.id?.text && (
                 <KaraokeLyric
-                  text={surahData?.translations.id.text[ayat]}
+                  text={surahData?.translations.id.text[audio.ayat]}
                   currentTime={timestamp}
                   duration={duration}
                 />
@@ -161,7 +130,7 @@ const SurahAudioPlayer = () => {
                   <div className="flex items-center">
                     <FileAudio className="h-4 w-4 mr-2 text-green-700" />
                     <small className="text-green-800 text-[13px]">
-                      QS. {surahInfo?.current.latin} {surah} : {ayat}
+                      QS. {surahInfo?.current.latin} {audio.surah} : {audio.ayat}
                     </small>
                   </div>
                   <div className="flex items-center">

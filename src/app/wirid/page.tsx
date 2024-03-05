@@ -13,7 +13,7 @@ export default function WiridPage() {
         {categories.map((item, index) => (
           <Link
             href={item.url}
-            className="flex items-center shadow-md shadow-[#4a575c1a] gap-4 py-5 px-4 rounded-xl bg-white mb-3"
+            className="flex items-center shadow-md shadow-[#4a575c1a] gap-4 py-5 px-4 rounded-xl bg-[#ffffffa3] backdrop-blur-sm shadow-[0_-5px_15px_2px_rgba(0,0,0,0.07) mb-3"
             key={index}
           >
             <div className="bg-[#EFF7DE] rounded-full justify-center items-center font-bold flex h-10 w-10">

@@ -15,7 +15,7 @@ interface Props {
 const SurahDetailPage: NextPage<Props> = ({ params, onlySurah = false }: Props) => {
   const [reverse, setReverse] = useState(false)
 
-  const playingRef = useRef(null)
+  const refCard = useRef(null)
   const { surah } = params
   const surahData = require(`../../../data/surah-data/${surah}.ts`).default[surah]
   const surahInfo: SurahInfoPage = require(`../../../data/surah-info/${surah}.ts`).default
@@ -49,7 +49,7 @@ const SurahDetailPage: NextPage<Props> = ({ params, onlySurah = false }: Props) 
               nameSurah={surahData.name_latin}
               reverse={reverse}
               key={index}
-              playingRef={playingRef}
+              refCard={refCard}
             />
           ))}
         {!onlySurah && <Pagination surahInfo={surahInfo} />}
