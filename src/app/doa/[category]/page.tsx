@@ -1,10 +1,18 @@
 import { DoaType } from '@/@types/Doa'
 import IconBar from '@/components/IconBar'
 import { NextPage } from 'next'
+import categories from '@/data/doa-data/doa-categories.json'
 
 interface Props {
   params: { category: string }
 }
+
+export async function generateStaticParams() {
+  return categories.map((item) => ({
+    category: item.url.split('/')[1],
+  }))
+}
+
 const Page: NextPage<Props> = ({ params }: Props) => {
   const data: DoaType[] = require(`../../../data/doa-data/${params.category}.ts`).default
 
