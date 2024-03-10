@@ -15,11 +15,10 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category } = params
-  const categories = await import('@/data/doa-data/doa-categories.json')
-  const doa = categories.filter((item) => item.url === `doa/${category}`)[0]
+  const doa = categories.find((item) => item.url === `doa/${category}`)
 
   return {
-    title: doa.category,
+    title: doa?.category,
     description: 'Kumpulan doa-doa',
   }
 }
