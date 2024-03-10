@@ -12,7 +12,10 @@ import { Toaster } from '@/components/ui/toaster'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Ńgäâåjį | Quran Online',
+  title: {
+    default: 'Ńgäâåjį | Quran Online',
+    template: '%s | Ngaaaji',
+  },
   description: 'Baca Al-Qur`an dari browser | Ngaaaji',
   generator: 'Next.js',
   manifest: '/manifest.json',

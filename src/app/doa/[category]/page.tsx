@@ -1,6 +1,6 @@
 import { DoaType } from '@/@types/Doa'
 import IconBar from '@/components/IconBar'
-import { NextPage } from 'next'
+import { Metadata, NextPage } from 'next'
 import categories from '@/data/doa-data/doa-categories.json'
 
 interface Props {
@@ -11,6 +11,17 @@ export async function generateStaticParams() {
   return categories.map((item) => ({
     category: item.url.split('/')[1],
   }))
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { category } = params
+  const categories = await import('@/data/doa-data/doa-categories.json')
+  const doa = categories.filter((item) => item.url === `doa/${category}`)[0]
+
+  return {
+    title: doa.category,
+    description: 'Kumpulan doa-doa',
+  }
 }
 
 const Page: NextPage<Props> = ({ params }: Props) => {
