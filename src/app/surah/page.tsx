@@ -4,45 +4,11 @@ import CardSurah from '@/components/CardSurah'
 import IconBar from '@/components/IconBar'
 import SearchInput from '@/components/SearchInput'
 import SkeletonSurah from '@/components/SkeletonSurah'
-import MakkiyahMadaniyah from '@/data/makkiyah-madaniyah'
-import surathInfo, { type SurahInfo } from '@/data/surah-info'
+import { useSurahListSearch } from '@/hook/useSurah'
 import { EqualNotIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
 
 export default function SurahPage() {
-  const [searchText, setSearchText] = useState<string>('')
-  const [filterSurahInfo, setFilterSurahInfo] = useState<SurahInfo>({})
-
-  useEffect(() => {
-    const noSpecialChars = (str: string) => str.replace(/[^a-zA-Z0-9 ]/g, '')
-
-    const surahInfo = () => {
-      let result: SurahInfo = {}
-      for (const [_, surah] of Object.entries(surathInfo)) {
-        const revelation = MakkiyahMadaniyah[surah.index]
-        const latin = surah.latin.toLowerCase()
-        const translation = surah.translation.toLowerCase()
-        if (
-          noSpecialChars(latin).indexOf(noSpecialChars(searchText.toLowerCase())) >= 0 ||
-          noSpecialChars(translation).indexOf(noSpecialChars(searchText.toLowerCase())) >= 0
-        ) {
-          result[surah.index] = {
-            ...surah,
-            revelation: revelation ? revelation : 0,
-          }
-        }
-      }
-      return result
-    }
-    setFilterSurahInfo(surahInfo)
-  }, [searchText])
-
-  const handleSearch = (query: string) => {
-    setSearchText(query)
-  }
-
-  const isLoading = Object.keys(filterSurahInfo).length === 0 && searchText.length === 0
-  const isEmpty = Object.keys(filterSurahInfo).length === 0 && searchText.length !== 0
+  const [filterSurahInfo, searchText, handleSearch, isLoading, isEmpty] = useSurahListSearch()
 
   return (
     <div className="flex flex-col">
@@ -59,7 +25,7 @@ export default function SurahPage() {
           <p className="text-center text-gray-400"> Tidak ada hasil yang ditemukan untuk &quot;{searchText}&quot;</p>
         </div>
       ) : (
-        Object.values(filterSurahInfo).map((item, index) => <CardSurah key={index} surahInfoItem={item} />)
+        filterSurahInfo.map((item, index) => <CardSurah key={index} surahInfoItem={item} />)
       )}
     </div>
   )

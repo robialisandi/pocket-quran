@@ -1,19 +1,22 @@
 import { DoaType } from '@/@types/Doa'
 import IconBar from '@/components/IconBar'
 import { Metadata, NextPage } from 'next'
-import categories from '@/data/wirid-data/wirid-categories.json'
+import { getCategory } from '../categories'
+import { getWirid } from '../wirid'
 
 interface Props {
   params: { category: string }
 }
 
 export const generateStaticParams = async () => {
+  const categories = await getCategory()
   return categories.map((item) => ({
     category: item.url.split('/')[1],
   }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const categories = await getCategory()
   const { category } = params
   const wirid = categories.find((item) => item.url === `wirid/${category}`)
 
@@ -23,8 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-const Page: NextPage<Props> = ({ params }: Props) => {
-  const data: DoaType[] = require(`../../../data/wirid-data/${params.category}.ts`).default
+const Page: NextPage<Props> = async ({ params }: Props) => {
+  const data: DoaType[] = await getWirid(params.category)
 
   return (
     <>

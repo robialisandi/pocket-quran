@@ -1,4 +1,3 @@
-import { useAppContext } from '@/context/state'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 

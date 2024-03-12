@@ -1,8 +1,10 @@
 import IconBar from '@/components/IconBar'
-import categories from '@/data/wirid-data/wirid-categories.json'
 import Link from 'next/link'
+import { getCategory } from './categories'
 
-export default function WiridPage() {
+export default async function WiridPage() {
+  const categories = await getCategory()
+
   return (
     <div className="flex flex-col">
       <h1 className="flex py-2 font-bold px-4 text-[#2F6742] bg-[#c8e0d5] mb-2">
